@@ -1,0 +1,31 @@
+
+
+# As 3 linhas abaixo fazem o redirecionamento do http para o https
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+# Habilite as 3 linhas abaixo caso precise configurar em produção um erro
+php_flag log_errors on
+php_value error_reporting 32767
+php_value error_log "error_log.txt"
+
+
+# Redireciona em caso de erro 404 no site para a página 404.php
+ErrorDocument 404 /404/index.php
+
+
+# Nega a permissão de qualquer usuário tentar acessar diretamente os arquivos listados
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?teste.com.br/.*$      [NC]
+RewriteRule .*\.(avi|bmp|css|exe|gif|gitignore|htm|html|ico|jpeg|jpg|js|json|less|min|mov|mp3|mp4|mpeg|mpg|ogv|pdf|php|png|psd|rar|scss|sql|svg|swf|tiff|ttf|webp|wma|woff2|yml|zip)$ http://teste.com.br/404 [R,NC]
+
+
+# Forçar o usuário a sempre que passar por qualquer url ser redirecionado para outra específica
+RewriteEngine On
+RewriteBase /public_html/
+RewriteCond %{REQUEST_URI} !^/controllers/controller.php
+RewriteRule ^(.*)$ /controller.php [L]
+
+

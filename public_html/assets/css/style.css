@@ -1,0 +1,631 @@
+
+
+/* 
+    Versão 1.0.0
+*/
+
+@charset "UTF-8";
+
+/* 
+------------------------------------------------------------------------
+Instalação de fontes externas
+------------------------------------------------------------------------
+*/
+
+    /* 
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        font-family: 'Noto Sans Mono', monospace;
+    */
+
+    @font-face {
+        font-family: 'Noto_Sans_Mono';
+        src: url('./../fontes_de_texto/noto_sans_mono/static/NotoSansMono/NotoSansMono-Thin.ttf') format('truetype');
+        font-weight: 100;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Noto_Sans_Mono';
+        src: url('./../fontes_de_texto/noto_sans_mono/static/NotoSansMono/NotoSansMono-ExtraLight.ttf') format('truetype');
+        font-weight: 200;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Noto_Sans_Mono';
+        src: url('./../fontes_de_texto/noto_sans_mono/static/NotoSansMono/NotoSansMono-Light.ttf') format('truetype');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Noto_Sans_Mono';
+        src: url('./../fontes_de_texto/noto_sans_mono/static/NotoSansMono/NotoSansMono-Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Noto_Sans_Mono';
+        src: url('./../fontes_de_texto/noto_sans_mono/static/NotoSansMono/NotoSansMono-Medium.ttf') format('truetype');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Noto_Sans_Mono';
+        src: url('./../fontes_de_texto/noto_sans_mono/static/NotoSansMono/NotoSansMono-SemiBold.ttf') format('truetype');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Noto_Sans_Mono';
+        src: url('./../fontes_de_texto/noto_sans_mono/static/NotoSansMono/NotoSansMono-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Noto_Sans_Mono';
+        src: url('./../fontes_de_texto/noto_sans_mono/static/NotoSansMono/NotoSansMono-ExtraBold.ttf') format('truetype');
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Noto_Sans_Mono';
+        src: url('./../fontes_de_texto/noto_sans_mono/static/NotoSansMono/NotoSansMono-Black.ttf') format('truetype');
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+    }
+
+
+
+/* 
+------------------------------------------------------------------------
+Configurando genericamente as tagnames
+------------------------------------------------------------------------
+*/
+    * {
+        font-family: 'Noto_Sans_Mono', monospace;
+        font-weight: 400;
+        font-style: normal;
+        text-align: justify;
+        box-sizing: content-box;
+        font-size: 14px;
+        line-height: 32px;
+    }
+
+    div, nav, main, footer, header, article, aside, dt, figcaption, optgroup {
+        display: block;
+    }
+
+    head, meta, link, title, datalist {
+        display: none;
+    }
+
+    html {
+        display: block;
+        position: relative;
+    }
+
+    body {
+        display: block;
+        margin: 0px;
+        width: 100%;
+        min-height: 100vh;
+        font-size: 16px;
+        text-align: justify;
+        box-sizing: border-box;
+    }
+
+    main {
+        max-width: 1200px;
+        margin: 10px auto 0px auto;
+        padding: 10px 16px 10px 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    p {
+        display: block;
+        margin-block-start: 16px;
+        margin-block-end: 16px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-size: 14px;
+        text-indent: 10px;
+    }
+
+    h1 {
+        display: block;
+        font-size: 20px;
+        margin-block-start: 10px;
+        margin-block-end: 10px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: 800;
+    }
+
+    h2 {
+        display: block;
+        font-size: 19px;
+        margin-block-start: 10px;
+        margin-block-end: 10px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: 800;
+    }
+
+    h3 {
+        display: block;
+        font-size: 18px;
+        margin-block-start: 10px;
+        margin-block-end: 10px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: 800;
+    }
+
+    h4 {
+        display: block;
+        font-size: 17px;
+        margin-block-start: 10px;
+        margin-block-end: 10px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: 800;
+    }
+
+    h5 {
+        display: block;
+        font-size: 16px;
+        margin-block-start: 10px;
+        margin-block-end: 10px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: 800;
+    }
+
+    h6 {
+        display: block;
+        font-size: 15px;
+        margin-block-start: 10px;
+        margin-block-end: 10px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: 800;
+    } 
+
+    a:link {
+        color: rgb(0, 0, 238);
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    a:visited {
+        color: rgb(255, 0, 0);
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    a:link:active, a:visited:active {
+        color: rgb(85, 26, 139);
+    }
+
+    span {
+        display: inline;
+    }
+
+    ol {
+        display: block;
+        list-style-type: decimal;
+        margin-block-start: 16px;
+        margin-block-end: 16px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 48px;
+    }
+
+    ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 16px;
+        margin-block-end: 16px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 48px;
+    }
+
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+    }
+
+    dl {
+        display: block;
+        margin-block-start: 16px;
+        margin-block-end: 16px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+    }
+
+    dd {
+        display: block;
+        margin-inline-start: 48px;
+    }
+
+    strong {
+        font-weight: 700;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    mark {
+        background-color: rgb(255, 255, 0);
+        color: rgb(0, 0, 0);
+        padding: 0px 5px 0px 5px;
+    }
+
+    small {
+        font-size: 10px;
+    }
+
+    sub {
+        vertical-align: -5px;
+        font-size: 10px;
+    }
+
+    sup {
+        vertical-align: 5px;
+        font-size: 10px;
+    }
+
+    figure {
+        display: block;
+        margin-block-start: 16px;
+        margin-block-end: 16px;
+        margin-inline-start: 12px;
+        margin-inline-end: 12px;
+    }
+
+    img {
+        overflow-clip-margin: content-box;
+        overflow: clip;
+    }
+
+    audio {
+        width: 300px;
+        height: 54px;
+    }
+        audio:not([controls]) {
+            display: none !important;
+        }
+
+    address {
+        display: block;
+        font-style: italic;
+    }
+
+    abbr {
+        display: inline;
+    }
+        abbr[title] {
+            text-decoration: underline;
+            cursor: help;
+        }
+
+    blockquote {
+        display: block;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+
+    q {
+        display: inline;
+    }
+
+        q::before {
+            content: open-quote;
+        }
+
+        q::after {
+            content: close-quote;
+        }
+
+    cite {
+        font-style: italic;
+    }
+
+    pre {
+        display: block;
+        font-family: monospace;
+        white-space: pre;
+        margin: 16px 0px 16px 0px;
+        overflow: auto;
+        max-height: 50vh;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    code {
+        font-family: monospace;
+    }
+
+    table {
+        display: table;
+        border-collapse: collapse;
+        box-sizing: border-box;
+        text-indent: initial;
+        border-spacing: 2px;
+        border: 2px solid rgb(0, 0, 0);
+        caption-side: top;
+        empty-cells: show;
+        margin: 0px auto 0px auto;
+        table-layout: fixed;
+        width: auto;
+    }
+    caption {
+        display: table-caption;
+        text-align: center;
+        font-weight: 900;
+    }
+    tbody {
+        display: table-row-group;
+        vertical-align: middle;
+        border-color: inherit;
+        border: 2px solid rgb(0, 0, 0);
+        
+    }
+    tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+        border: 2px solid rgb(0, 0, 0);
+    }
+    th {
+        display: table-cell;
+        vertical-align: inherit;
+        font-weight: 700;
+        text-align: center;
+        border: 2px solid rgb(0, 0, 0);
+        padding: 5px 10px 5px 10px;
+        min-width: 200px;
+        box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
+    }
+    td {
+        display: table-cell;
+        vertical-align: inherit;
+        border: 2px solid rgb(0, 0, 0);
+        padding: 5px 10px 5px 10px;
+        min-width: 200px;
+        text-align: left;
+    }
+
+    button {
+        border: 2px solid black;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 0px 12px 0px 12px;
+        font-weight: 400;
+    }
+    button:hover {
+        opacity: 0.9;
+        font-weight: 700;
+    }
+
+    input, select, textarea {
+        writing-mode: horizontal-tb !important;
+        text-rendering: auto;
+        color: black;
+        letter-spacing: 0px;
+        word-spacing: 0px;
+        line-height: 19px;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: left;
+        appearance: auto;
+        background-color: white;
+        margin: 5px 0px 5px 0px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(118, 118, 118);
+        border-radius: 2px;
+        padding: 6px 3px 6px 3px;
+        -webkit-rtl-ordering: logical;
+    }
+    input[type="text"], input[type="password"] {
+        width: 200px;
+        cursor: text;
+    }
+    input[type="text"]:hover, input[type="password"]:hover {
+        border-color: rgb(0, 0, 0);
+    }
+    input[type="password"] {
+        -webkit-text-security: disc !important;
+    }
+    input[type="checkbox"], input[type="radio"] {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+    }
+
+    input[type="color"] {
+        appearance: auto;
+        width: 40px;
+        height: 25px;
+        cursor: pointer;
+        box-sizing: content-box;
+        background-color: rgb(228, 228, 228);
+        color: black;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(118, 118, 118);
+        border-image: initial;
+        padding: 5px 3px 5px 3px;
+    }
+
+    input[type="range"] {
+        appearance: auto;
+        cursor: e-resize;
+        color: rgb(228, 228, 228);
+        border: none;
+        vertical-align: middle;
+        width: 135px;
+        height: 20px;
+    }
+
+    input[type="file"] {
+        cursor: pointer;
+        align-items: baseline;
+        text-overflow: ellipsis;
+        white-space: pre;
+        border: initial;
+        overflow: hidden !important;
+        max-width: 260px;
+    }
+
+    select {
+        align-items: center;
+        white-space: pre;
+        cursor: pointer;
+        padding: 2px 4px 2px 4px;
+    }
+
+    option {
+        display: block;
+        white-space: nowrap;
+        min-height: 20px;
+        padding: 2px 4px 2px 4px;
+    }
+
+    output {
+        display: inline;
+        unicode-bidi: isolate;
+    }
+
+    textarea {
+        resize: auto;
+        cursor: text;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        background-color: rgb(255, 255, 255);
+        column-count: initial !important;
+    }
+
+    fieldset {
+        display: block;
+        margin: 0px 0px 0px 0px;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-block-start: 0px;
+        padding-inline-start: 0px;
+        padding-inline-end: 0px;
+        padding-block-end: 0px;
+        min-inline-size: min-content;
+        border-width: 2px;
+        border-style: groove;
+        border-color: rgb(192, 192, 192);
+        border-image: none;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 3px;
+    }
+
+    legend {
+        display: block;
+        padding-inline-start: 2px;
+        padding-inline-end: 2px;
+        border: none;
+    }
+
+    video {
+        object-fit: contain;
+        overflow-clip-margin: content-box;
+        overflow: clip;
+    }
+
+/* 
+------------------------------------------------------------------------
+PALETA DE CORES
+------------------------------------------------------------------------
+*/
+
+:root {
+    --cor_z0: rgb(222, 222, 222);
+    --cor_z1: rgb(45, 45, 45);
+    --cor_z2: rgb(255, 255, 255);
+    --cor_z3: rgb(0, 0, 0);
+
+    --cor_a1: #0600a1;
+    --cor_a2: #160cfc;
+    --cor_a3: #00faff;
+    --cor_a4: #9100b8;
+    --cor_a5: #040060;
+    --cor_a6: #479077;
+    --cor_a7: #00c583;
+}
+
+html, body {
+    background-color: var(--cor_z0);
+}
+
+main {
+    background-color: var(--cor_z2) ;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    color: var(--cor_a5);
+}
+
+a:link {
+    color: var(--cor_a2);
+}
+a:visited {
+    color: var(--cor_z3);
+}
+a:link:active, a:visited:active {
+    color: var(--cor_a4);
+}
+
+mark {
+    background-color: var(--cor_a3);
+    color: var(--cor_a5);
+}
+
+nav {
+    background-color: var(--cor_a6);
+}
+
+button {
+    background-color: var(--cor_z0);
+    color: var(--cor_z1);
+}
+
+table, tbody, tr, th, td {
+    border-color: var(--cor_z3);
+}
+tr:nth-child(2n-1) {
+    background-color: var(--cor_z0);
+}
+tr:hover {
+    background-color: var(--cor_a3);
+}

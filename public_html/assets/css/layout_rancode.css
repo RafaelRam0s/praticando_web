@@ -1,0 +1,380 @@
+
+/* 
+------------------------------------------------------------------------
+Classes montadas
+------------------------------------------------------------------------
+*/
+#corpo {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.bloco_cor_a1 {
+    background-color: var(--cor_a1);
+    padding: 10px;
+}
+.bloco_cor_a2 {
+    background-color: var(--cor_a2);
+    padding: 10px;
+}
+.bloco_cor_a3 {
+    background-color: var(--cor_a3);
+    padding: 10px;
+}
+.bloco_cor_a4 {
+    background-color: var(--cor_a4);
+    padding: 10px;
+}
+.bloco_cor_a5 {
+    background-color: var(--cor_a5);
+    padding: 10px;
+}
+.bloco_cor_a6 {
+    background-color: var(--cor_a6);
+    padding: 10px;
+}
+.bloco_cor_a7 {
+    background-color: var(--cor_a7);
+    padding: 10px;
+}
+
+.hyperlink_nao_visitado {
+    color: var(--cor_a2);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.hyperlink_visitado {
+    color: var(--cor_z3);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.hyperlink_pressionado {
+    color: var(--cor_a4);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.conteiner_de_midia {
+    overflow: auto;
+    max-height: 50vh;
+    max-width: 100%;
+}
+
+.conteiner_de_iframe_youtube {
+    background-color: var(--cor_z0);
+    margin: 0px 0px 0px 0px;
+    padding: 16px 16px 50% 16px;
+    position: relative;
+}
+.conteiner_de_iframe_youtube > iframe {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+}
+
+.container_de_tabela {
+    overflow: auto;
+    width: 100%;
+    max-height: 50vh;
+}
+
+.texto_legenda {
+    text-shadow: 
+        1px 0px 1px var(--cor_z2), 
+        0px 1px 1px var(--cor_z2), 
+        -1px 0px 1px var(--cor_z2), 
+        0px -1px 1px var(--cor_z2)
+    ;
+}
+
+.logo_em_css {
+    font-size: 20px;
+    color: var(--cor_z2);
+    font-weight: 800;
+    border: 3px solid var(--cor_z2);
+    display: inline-block;
+    height: 32px;
+    width: 84px;
+}
+
+.display_none {
+    display: none;
+}
+
+form.labels_display_block label {
+    display: block;
+}
+
+.aviso_de_erro {
+    margin: 0px; 
+    background-color: rgba(200, 0, 0, 0.5);
+    color: var(--cor_z2);
+}
+.aviso_de_sucesso {
+    margin: 0px; 
+    background-color: rgba(0, 200, 0, 0.5); 
+    color: var(--cor_z2);
+}
+
+
+
+/* 
+------------------------------------------------------------------------
+Cabeçalho
+------------------------------------------------------------------------
+*/
+#pre_cabecalho {
+    background-color: var(--cor_a1);
+    opacity: 0.9;
+    padding: 4px;
+}
+
+#corpo > header#cabecalho {
+    background-color: var(--cor_a1);
+    color: var(--cor_z2);
+    opacity: 0.9;
+    display: block;
+    width: 100%;
+    padding: 1px 0px 1px 0px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: -0.5px;
+    z-index: 1;
+}
+
+    #corpo > header#cabecalho > #cabecalho_principal {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px 10px 15px;
+        transition: padding 0.1s linear 0s;
+        
+        margin: 5px auto 5px auto;
+        max-width: 1200px;
+    }
+
+        #corpo > header#cabecalho > #cabecalho_principal > div {
+            margin: 0px 5px 0px 5px;
+        }
+
+        #corpo > header#cabecalho > #cabecalho_principal span.mensagem_menu {
+            color: var(--cor_z2);
+            margin: 0px 0px 0px 0px;
+        }
+
+        #corpo > header#cabecalho > #cabecalho_principal > div#_fechar_menu_links {
+            display: none;
+        }
+
+nav#_menu_links {
+    overflow: auto;
+    width: 100%;
+    z-index: 2;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+
+    display: none;
+    max-height: 0vh;
+    transition: max-height 0.1s linear 0s;
+}
+
+    nav#_menu_links > div {
+        position: relative;
+    }
+
+    nav#_menu_links > div ul {
+        padding: 4px 16px 4px 16px;
+        margin: 0px 0px 0px 0px;
+        list-style-type: none;
+    }
+
+        nav#_menu_links > div ul > li {
+            border-bottom: 2px solid rgba(0, 0, 0, 0.13);
+            padding: 0px;
+            margin: 0px 0px 0px 0px;
+        }
+            nav#_menu_links > div ul > li:hover {
+                border-bottom: none;
+            }
+
+        nav#_menu_links > div ul > li > a {
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 5px 20px 5px 20px;
+            box-sizing: border-box;
+            color: var(--cor_z2);
+        }
+            nav#_menu_links > div ul > li > a:hover {
+                background-color: var(--cor_a7);
+                text-decoration: underline;
+                color: var(--cor_z3);
+            }
+
+        nav#_menu_links > div ul > li.aba_de_categorias {
+            padding: 10px 20px 10px 20px;
+            cursor: pointer;
+        }
+
+            nav#_menu_links > div ul > li.aba_de_categorias:hover {
+                background-color: var(--cor_a7);
+            }
+
+            nav#_menu_links > div ul > li.aba_de_categorias a:hover {
+                background-color: var(--cor_a6);
+            }
+
+        nav#_menu_links > div ul > li.aba_de_categorias > ul {
+            display: none;
+            max-height: 0vh;
+            transition: max-height 0.05s linear 0s;
+        }
+
+
+
+/* 
+------------------------------------------------------------------------
+Rodapé
+------------------------------------------------------------------------
+*/
+#corpo > footer#rodape > div  {
+    background-color: var(--cor_a1);
+    color: var(--cor_z2);
+    box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.5);
+    padding: 1px 1px 1px 1px;
+    opacity: 0.9;
+}
+#corpo > footer#rodape > div p {
+    color: var(--cor_z2);
+    margin: 5px 0px 5px 0px;
+    text-align: center;
+}
+#corpo > footer#rodape > div a {
+    color: var(--cor_z0);
+    text-decoration: none;
+}
+#corpo > footer#rodape > div a:hover {
+    color: var(--cor_z2);
+    text-decoration: underline;
+}
+
+#corpo > footer#rodape > div > div#area_informacoes {
+    width: 100%;
+    max-width: 1200px;
+    padding: 5px 10px 5px 10px;
+    margin: 0px auto 0px auto;
+    box-sizing: border-box;
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#corpo > footer#rodape > div > div#area_informacoes > div {
+    width: 100%;
+    text-align: center;
+}
+
+#corpo > footer#rodape > div > div#area_copyright {
+    width: 100%;
+    max-width: 1200px;
+    padding: 5px 10px 5px 10px;
+    margin: 0px auto 0px auto;
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: 800;
+}
+#corpo > footer#rodape > div > div#area_copyright p {
+    text-align: center;
+    margin: 0px;
+    font-weight: 800;
+}
+
+
+
+/* 
+------------------------------------------------------------------------
+Preloader
+------------------------------------------------------------------------
+*/
+/*
+#corpo {
+    display: none;
+}
+
+div#preloader {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    z-index: 9;
+    transition: opacity 0.5s linear 0s;
+}
+div#preloader > div {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: #00ffaa;
+    z-index: 9;
+    padding: 12px;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes animacaoRodando {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+.animacao_rodando {
+    animation-name: animacaoRodando;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+*/
+
+
+
+
+
+/* 
+------------------------------------------------------------------------
+Ajustes para mobile
+------------------------------------------------------------------------
+*/
+@media all and (min-width: 600px) {
+    .display_block_600px {
+        display: block;
+    }
+    
+    /* Rodape */
+    #corpo > footer#rodape > div > div#area_informacoes {
+        flex-direction: row;
+    }
+    #corpo > footer#rodape > div > div#area_informacoes > div {
+        width: 50%;
+    }
+    /* Fim Rodape */
+}
+
+@media print {
+    body::before {
+        content: "Esta mensagem só aparecerá ao solicitar a impressão da página, com o ctrl+p";
+    }
+}
