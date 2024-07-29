@@ -1,5 +1,5 @@
 <div>
-    <h2>Política de Privacidade v1.0.0</h2>
+    <h2>Política de Privacidade</h2>
 
     <p>Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e protegemos as informações pessoais dos usuários que acessam nosso site. Ao utilizar nossa plataforma, você concorda com o tratamento de suas informações pessoais de acordo com esta Política de Privacidade.</p>
 

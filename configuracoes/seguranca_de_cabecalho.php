@@ -3,4 +3,7 @@
     header("Content-Security-Policy: frame-ancestors 'none'", false);
     header("X-Frame-Options: DENY");
 
+    // Desativar o retorno de erros do php em produção
+    // error_reporting(0);
+
 ?>

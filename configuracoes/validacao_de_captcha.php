@@ -1,5 +1,17 @@
 <?php
-require_once(__DIR__ . '/configuracoes.php');
+
+/* 
+Inserir no html:
+<?php 
+    require_once(__DIR__ . 'config.php');
+?>
+<div>
+    <div class="g-recaptcha" data-sitekey="<?php echo(GRECAPTCHA_PUBLIC_KEY); ?>"></div>
+</div>
+*/
+
+require_once(__DIR__ . '/rotas.php');
+convocar_rota('config/configuracoes');
 
 function validar_recaptcha_v2($g_recaptcha_response) 
 {

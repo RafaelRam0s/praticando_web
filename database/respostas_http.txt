@@ -1,0 +1,124 @@
+
+
+
+Lista de Status:
+
+    100 - Um código de status de 100 níveis indica que a solicitação que você fez ao servidor ainda está em andamento por algum motivo. Isto não é necessariamente um problema, é apenas informação extra para o informar do que se está a passar.
+
+        100: “Continuar.” Isto significa que o servidor em questão recebeu os cabeçalhos de pedido do seu navegador, e agora está pronto para que o corpo do pedido também seja enviado. Isso torna o processo de solicitação mais eficiente, pois impede que o navegador envie um pedido de corpo, mesmo que os cabeçalhos tenham sido rejeitados.
+
+        101: “Troca de protocolos.” O seu browser pediu ao servidor para alterar os protocolos, e o servidor cumpriu.
+        
+        103: “Dicas iniciais.” Isto devolve alguns cabeçalhos de resposta antes que o resto da resposta do servidor esteja pronto.
+
+    200 - Este é o melhor tipo de código de status HTTP a receber. Uma resposta de 200 níveis significa que tudo está funcionando exatamente como deveria.
+
+        200: “Está tudo bem.” Este é o código que é entregue quando uma página web ou um recurso age exatamente da maneira que é esperado.
+
+        201: “Criado.” O servidor cumpriu o pedido do navegador e, como resultado, criou um novo recurso.
+
+        202: “Aceite.” O servidor aceitou o pedido do seu navegador, mas ainda está a processá-lo. O pedido pode ou não resultar em uma resposta completa.
+
+        203: “Informação Não Autoritária”. Este código de status pode aparecer quando um proxy está em uso. Isso significa que o servidor proxy recebeu um código de status 200 “Tudo está OK” do servidor de origem, mas modificou a resposta antes de passá-la para o seu navegador.
+
+        204: “Sem conteúdo”. Este código significa que o servidor processou a solicitação com sucesso, mas não vai devolver nenhum conteúdo.
+
+        205: “Redefinir conteúdo.” Como um código 204, isto significa que o servidor processou o pedido mas não vai devolver nenhum conteúdo. No entanto, também requer que o seu navegador reinicialize a visualização do documento.
+
+        206: “Conteúdo Parcial.” Você pode ver este código de status se o seu cliente HTTP (também conhecido como seu navegador) usar ‘cabeçalhos de intervalo’. Isso permite que seu navegador retome downloads em pausa, assim como dividir um download em vários streams. Um código 206 é enviado quando um cabeçalho de intervalo faz com que o servidor envie apenas parte do recurso solicitado.
+
+    300 - Redirecionamento é o processo usado para comunicar que um recurso foi movido para um novo local. Existem vários códigos de status HTTP que acompanham os redirecionamentos, a fim de fornecer aos visitantes informações sobre onde encontrar o conteúdo que eles estão procurando.
+
+        300: “Escolhas Múltiplas”. Às vezes, pode haver vários recursos possíveis com os quais o servidor pode responder para atender ao pedido do seu navegador. Um código de status 300 significa que seu navegador agora precisa escolher entre eles. Isso pode ocorrer quando há múltiplas extensões de tipo de arquivo disponíveis, ou se o servidor estiver experimentando desambiguação de sentido de palavras.
+
+        301: “O recurso solicitado foi movido permanentemente.” Este código é entregue quando uma página web ou recurso foi permanentemente substituído por um recurso diferente. É usado para redirecionamento permanente de URLs.
+
+        302: “O recurso solicitado moveu-se, mas foi encontrado.” Este código é usado para indicar que o recurso solicitado foi encontrado, mas não no local onde ele era esperado. É usado para redirecionamento temporário de URLs.
+
+        303: “Ver Outro.” A compreensão de um código de status 303 requer que você saiba a diferença entre os quatro métodos primários de solicitação HTTP. Essencialmente, um código 303 diz ao seu navegador que ele encontrou o recurso solicitado pelo seu navegador via POST, PUT, ou DELETE. No entanto, para recuperá-lo usando GET, você precisa fazer o pedido apropriado para um URL diferente daquele que você usou anteriormente.
+
+        304: “O recurso solicitado não foi modificado desde a última vez que você o acessou.” Este código diz ao navegador que os recursos armazenados no cache do navegador não foram alterados. É usado para acelerar a entrega de páginas web, reutilizando recursos previamente descarregados.
+
+        307: “Redirecionar Temporariamente.” Este código de status substituiu o 302 “Encontrado” como a ação apropriada quando um recurso foi temporariamente movido para uma URL diferente. Ao contrário do código de status 302, ele não permite que o método HTTP seja alterado.
+        
+        308: “Redirecionamento Permanente.” O código de status 308 é o sucessor do código 301 “Movido Permanentemente”. Ele não permite que o método HTTP seja alterado e indica que o recurso solicitado está agora permanentemente localizado em uma nova URL.
+
+    400 - No nível 400, os códigos de status HTTP começam a se tornar problemáticos. Estes são códigos de erro que especificam que existe uma falha no seu browser e/ou pedido.
+        
+        400: “Mau pedido.” O servidor não pode retornar uma resposta devido a um erro no lado do cliente. Veja o nosso guia para resolver este erro.
+
+        401: “Não Autorizado” ou “Autorização Necessária”. Isto é devolvido pelo servidor quando o recurso alvo não possui credenciais de autenticação válidas. Você pode ver isto se tiver configurado a autenticação HTTP básica usando htpasswd.
+
+        402: “Pagamento Requerido”. Originalmente, este código foi criado para ser usado como parte de um sistema de dinheiro digital. No entanto, esse plano nunca foi concretizado. Em vez disso, é usado por uma variedade de plataformas para indicar que um pedido não pode ser atendido, geralmente devido à falta dos fundos necessários. Exemplos comuns incluem:
+            Você atingiu seu limite diário de solicitações para a API do Google Developers.
+            Você não pagou a sua Shopify e a sua loja foi temporariamente desativada.
+            O seu pagamento via Stripe falhou, ou Stripe está a tentar evitar um pagamento fraudulento.
+
+        403: “O acesso a esse recurso é proibido.” Este código é devolvido quando um usuário tenta acessar algo que não tem permissão para visualizar. Por exemplo, tentar chegar ao conteúdo protegido por senha sem entrar no sistema pode produzir um erro 403.
+
+        404: “O recurso solicitado não foi encontrado”. Esta é a mensagem de erro mais comum de todas elas. Este código significa que o recurso solicitado não existe, e o servidor não sabe se ele alguma vez existiu
+
+        405: “Método não permitido.” Isto é gerado quando o servidor de hospedagem (servidor de origem) suporta o método recebido, mas o recurso de destino não suporta.
+
+        406: “Resposta não aceitável.” O recurso solicitado é capaz de gerar apenas conteúdo que não é aceitável de acordo com os cabeçalhos de aceitação enviados no pedido.
+
+        407: “Autenticação Proxy Necessária.” Um servidor proxy está em uso e requer que seu navegador se autentique antes de continuar.
+
+        408: “O servidor ficou sem tempo à espera do resto do pedido do browser.” Este código é gerado quando um servidor fica fora do ar enquanto espera pelo pedido completo do navegador. Em outras palavras, o servidor não recebeu o pedido completo que foi enviado pelo navegador. Uma causa possível pode ser o congestionamento da rede, resultando na perda de pacotes de dados entre o navegador e o servidor.
+
+        409: “Conflito.” Um código de status 409 significa que o servidor não pôde processar o pedido do seu navegador porque há um conflito com o recurso relevante. Isto às vezes ocorre devido a múltiplas edições simultâneas.
+
+        410: “O recurso solicitado desapareceu e não vai voltar.” Isto é semelhante a um código 404 “Não Encontrado”, excepto um 410 indica que a condição é esperada e permanente.
+
+        411: “Comprimento Requerido”. Isto significa que o recurso solicitado requer que o cliente especifique um determinado comprimento e que não o tenha feito.
+
+        412: “Pré-condição falhada.” Seu navegador incluiu certas condições em seus cabeçalhos de solicitação, e o servidor não atendeu a essas especificações.
+
+        413: “Payload Too Large” ou “Request Entity Too Large“. O seu pedido é maior do que o servidor está disposto ou é capaz de processar.
+
+        414: “URI demasiado longo.” Isso geralmente é o resultado de uma solicitação GET que foi codificada como uma query string que é muito grande para o servidor processar.
+
+        415: “Tipo de mídia não suportada.” A solicitação inclui um tipo de mídia que o servidor ou recurso não suporta.
+
+        416: “Gama Insatisfatória”. O seu pedido foi para uma parte de um recurso que o servidor não pode devolver.
+        
+        417: “Expectativa falhada.” O servidor não consegue atender aos requisitos especificados no campo de cabeçalho de espera da solicitação. 
+        
+        418: “Eu sou um bule.” Este código é devolvido pelos bules que recebem pedidos para fazer café. É também uma piada de Abril de 1989.
+
+        422: “Entidade Incompetente“. O pedido do cliente contém erros semânticos, e o servidor não pode processá-lo.
+
+        425: “Muito cedo.” Este código é enviado quando o servidor não está disposto a processar um pedido porque pode ser reproduzido.
+
+        426: “Atualização Necessária”. Devido ao conteúdo do campo de cabeçalho de atualização do pedido, o cliente deve mudar para um protocolo diferente.
+
+        428: “Pré-requisito”. O servidor requer que as condições sejam especificadas antes de processar a solicitação.
+
+        429: “Demasiados pedidos.” Isto é gerado pelo servidor quando o usuário enviou muitas solicitações em um determinado período de tempo (limite de taxa). Isso às vezes pode ocorrer devido a bots ou scripts que tentam acessar o seu site. Neste caso, talvez você queira tentar mudar seu URL de login do WordPress. Você também pode consultar nosso guia para corrigir um erro de 429 “Demasiados pedidos”.  
+
+    500 - Os códigos de status de nível 500 também são considerados erros. No entanto, eles denotam que o problema está no final do servidor. Isto pode torná-los mais difíceis de resolver
+
+        500: “Houve um erro no servidor e o pedido não pôde ser completado”. Este é um código genérico que significa simplesmente “erro interno do servidor”. Algo correu mal no servidor e o recurso solicitado não foi entregue. Este código é normalmente gerado por plugins de terceiros, PHP defeituoso, ou mesmo a conexão com a base de dados quebrando. Confira nossos tutoriais sobre como corrigir o erro ao estabelecer uma conexão de banco de dados e outras formas de resolver um erro de 500 servidores internos.
+
+        501: “Não Implementado.” Este erro indica que o servidor não suporta a funcionalidade necessária para atender a solicitação. Isto é quase sempre um problema no próprio servidor web, e normalmente deve ser resolvido pela sua hospedagem. Verifique as nossas recomendações sobre como resolver um erro 501 não implementado.
+
+        502: “Bad Gateway.” Este código de erro tipicamente significa que um servidor recebeu uma resposta inválida de outro, tal como quando um servidor proxy está em uso. Outras vezes uma consulta ou pedido demorará muito tempo, e por isso é cancelado ou morto pelo servidor e a conexão com a base de dados quebra. Para mais detalhes, consulte o nosso tutorial detalhado sobre como corrigir o erro 502 Bad Gateway.
+
+        503: “O servidor está indisponível para tratar deste pedido neste momento.” O pedido não pode ser completado neste momento. Este código pode ser devolvido por um servidor sobrecarregado que não é capaz de lidar com pedidos adicionais. Temos um guia completo sobre como corrigir o Erro de Serviço 503 Indisponível.
+
+        504: “O servidor, agindo como um gateway, temporizado à espera da resposta de outro servidor.” Este é o código retornado quando há dois servidores envolvidos no processamento de uma solicitação, e o primeiro servidor fica esperando que o segundo servidor responda. Você pode ler mais sobre como corrigir 504 erros em nosso guia dedicado.
+
+        505: “Versão HTTP Não Suportada”. O servidor não suporta a versão HTTP que o cliente usou para fazer o pedido.
+
+        508: “Resource Limit Is Reached”. Confira nosso tutorial sobre como resolver o erro “508 Resource Limit Is Reached” (O limite de recursos é alcançado).
+
+        509: “Limite de largura de banda excedido” significa que seu site está usando mais largura de banda do que seu provedor de hospedagem permite.
+
+        511: “Autenticação de Rede Necessária”. Este código de status é enviado quando a rede que você está tentando usar requer alguma forma de autenticação antes de enviar o seu pedido para o servidor. Por exemplo, pode ter de concordar com os Termos e Condições de um hotspot Wi-Fi público.
+
+        521: “Servidor Web está em baixo.” O erro 521 é uma mensagem de erro específica do Cloudflare-specific error. Isso significa que o seu navegador web foi capaz de se conectar com sucesso ao Cloudflare, mas o Cloudflare não foi capaz de se conectar ao servidor web de origem.
+
+        525: “SSL Handshake Failed“. O erro 525 significa que o aperto de mão SSL entre um domínio usando o Cloudflare e o servidor web de origem falhou. Se você estiver tendo problemas, há cinco métodos que você pode tentar corrigir facilmente o erro 525.
+
+
+

@@ -57,7 +57,7 @@ function aesDesencriptar($valor) : string|false
 // ------------------------------------------------------------------------
 // Chaves de criptografia para o MySQL
 // ------------------------------------------------------------------------
-define('AES_KEY_DB_CENTRAL', ''); // 24 Caracteres
+define('AES_KEY_DB_PRATICANDO_WEB', ''); // 24 Caracteres
 
 
 

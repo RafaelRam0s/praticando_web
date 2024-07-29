@@ -1,8 +1,9 @@
 <?php
 
-require_once(__DIR__ . '/configuracoes.php');
+require_once(__DIR__ . '/rotas.php');
+convocar_rota('config/configuracoes');
 
-function db_central_gerar_conexao()
+function db_praticando_web_gerar_conexao()
 {
     // Tentar conexão com o banco
     try 
@@ -26,17 +27,15 @@ function db_central_gerar_conexao()
         {
             error_log('Falha na coneão com o banco de dados', 0);
             // Redireciona o usuário para o erro 404
-            require_once(__DIR__ . '/../public_html/assets/funcionalidades_php/header.php');
-            header("Location: /404");
+            convocar_rota('erro/404');
         }
         
     } catch (PDOException $pe) // Conexão com o banco falhou
     {
-        error_log('Falha na coneão com o banco de dados: ' . $pe->getMessage(), 0);
+        error_log('Falha na conexão com o banco de dados: ' . $pe->getMessage(), 0);
         
         // Redireciona o usuário para o erro 404
-        require_once(__DIR__ . '/../public_html/assets/funcionalidades_php/header.php');
-        header("Location: /404");
+        convocar_rota('erro/404');
     }
 
     // Retorna a conexão com o banco

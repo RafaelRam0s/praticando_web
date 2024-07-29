@@ -66,9 +66,8 @@
 </style>
 
 <div>
-    <h2 style="text-align: center;">O que é este site?</h2>
-
-    <p style="text-align: center;">Este site que estou elaborando tem como obejtivo ser meu portfólio e a entrada de pequenos projetos que me chamarem atenção.</p>
+    <h2 style="text-align: center; font-weight: 400;">Rafael Ramos da Silva</h2>
+    <h1 style="text-align: center; text-decoration: underline;">Desenvolvedor e Programador de Softwares</h1>
 
     <section>
         <h3 style="text-align: center;">Meu Perfil:</h3>
@@ -76,38 +75,66 @@
         <div>
 
             <div class="img_perfil">
-                <img src="/assets/imagens/rafael_ramos_18.webp" alt="Foto do Rafael Ramos" width="960" height="960" />
+                <img src="./assets/imagens/rafael_ramos_18.webp" alt="Foto do Rafael Ramos" width="960" height="960" />
 
                 <div>
                     <h4>Linguagens e Tecnologias estudadas:</h4>
 
                     <ul class="lista_de_sistemas">
-                        <a style="color: unset;" href="/templates/template_html"><li><i class="fa-brands fa-html5"></i> HTML5</li></a>
+                        <li><i class="fa-brands fa-html5"></i> HTML5</li>
                         <li><i class="fa-brands fa-css3-alt"></i> CSS3</li>
                         <li><i class="fa-brands fa-js"></i> Javascript</li>
                         <li><i class="fa-brands fa-php"></i> PHP</li>
                         <li><i class="fa-solid fa-database"></i> MySQL</li>
                         <li><i class="fa-brands fa-github"></i> Github</li>
+                        <li><i class="fa-brands fa-java"></i> Java</li>
+                        <li><i class="fa-brands fa-python"></i> Python</li>
+                        <li><i class="fa-brands fa-node"></i> NodeJS</li>
+                        <li>C</li>
+                        <li>C#</li>
+                        <li>Asp.Net MVC</li>
+                        <li>Arduino</li>
+                        <li>Mips-32</li>
                     </ul>
                 </div>
             </div>
             
             <div>
-                <p>Sou Rafael Ramos da Silva, um estudante adquirindo cada vez mais conhecimento nos diversos ramos da programação não se fixando apenas em desenvolvimento web, mas tendo ela como principal foco. Enquanto estou fazendo este site estou colocando tudo que sei em prática desenvolvendo de forma autonoma e autodidata.</p>
+                <div>
+                    <h4>O que faço atualmente:</h4>
 
-                <h4>Experiências profissionais:</h4>
+                    <p>Estudo no Paraná na UTFPR campus Ponta Grossa em Análise e Desenvolvimento de Sistemas e busco poder contribuir no meio empresarial colocando meus conhecimentos e habilidades em prática, não só como desenvolvedor de softwares, mas também em funções que desempenham hablidades parecidas como analista de dados, gerencia e muitas outras.</p>
+                </div>
 
-                <p>• 2 anos em uma startup como estagiário.</p>
+                <div>
+                    <h4>Experiência profissional:</h4>
 
-                <p>A empresa tinha como objetivo criar conexão entre profissionais da área de saúde mental e pacientes durante o tempo de pandemia da Covid-19. Lá aprendi a utilizar o Github para versionamento de códigos em equipes, conceitos de indexação de páginas nos algorítimos de pesquisas como o Google, prática com front-end, back-end, APIs e bancos de dados, sistemas de criptografia, login, chats, video-chamadas e pagamentos. Além de utilizar ferramentas de gerenciamento de metas com o Trello e utilização de e-mail corporativo para responder os usuários.</p>
+                    <p>Atuei 2 anos como Desenvolvedor FullStack, realizando o design do site, sua implementação com o padrão MVC, otimização do site para rankeamento, conexões com APIs externas e internas utilizando o JSON, desenvolvimento de Banco de dados com o MySQL, atendimento ao cliente para soluções rápidas seja e-mail, telefone ou whatsapp, tester da aplicação, analista de dados, segurança de dados com criptografia, formulação de formulários, validações de login e manutenção diária.</p>
+                </div>
 
-                <h4>O que faço atualmente:</h4>
+                <div>
+                    <h5>Idiomas:</h5> 
+                    <span>Português fluente</span>
+                    <br>
+                    <span>Inglês técnico</span>
+                </div>
+                
+                <div>
+                    <h5 style="display: inline-block;">Nascimento:</h5> 
+                    <span>13/07/2002</span>
+                </div>
 
-                <p>Estou estudando na UTFPR, campus Ponta Grossa, o curso de Bacharelado em Ciências da Computação, conhecendo cada vez mais as diversas oportunidades que o mundo da tecnologia tem a oferecer, disposto a engressar no mercado de trabalho e procurando formas de aprimorar e aplicar meus conhecimentos.</p>
+                <div>
+                    <h5 style="display: inline-block;">Pretensão salarial:</h5> 
+                    <span>A partir de R$ 2.000,00. Negociável de acordo com a função e benefícios</span>
+                </div>
 
-                <p class="observacao_de_agradecimento">*Deixo aqui meus agradecimentos finais à minha família e amigos que me deram apoio, me ajudaram a estruturar este site e me ensinam cada dia mais.</p>
+                <div>
+                    <h4>Outros pontos sobre mim:</h4>
+                    
+                    <p>Sou um profissional com bom trabalho de equipe e comunicação, me destaco principalmente pela organização tanto de ideias quanto de projetos, possuo capacidade de resolver problemas de forma criativa e analítica, também me adapto bem ao ambiente conforme a necessidade e estou constantemente buscando aprender e melhorar minhas habilidades na área da tecnologia.</p>
+                </div>
 
-                <p><a href="Curriculo - Rafael Ramos_v3.pdf" download="curriculo_rafael_ramos.pdf">Baixe o meu curriculo completo</a></p>
             </div>
             
         </div>

@@ -1,6 +1,7 @@
 <?php
-    require_once(__DIR__ . '/../../configuracoes/seguranca_de_cabecalho.php');
-    
+    require_once(__DIR__ . '/../../configuracoes/rotas.php');
+    convocar_rota('config/seguranca_de_cabecalho');
+
     if (!(
         isset($layout_descricao)
         && isset($layout_palavras_chaves)
@@ -30,12 +31,16 @@
     <title><?php echo($layout_titulo); ?></title>
 
     <link rel="stylesheet" href="/assets/frameworks/fontawesome-free-6.2.1-web/css/all.min.css" />
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.css"> -->
+    <!--
+        Font Awesome linkado externamente: 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.css"> 
+    -->
 
 </head>
 <body>
 
     <!--     
+        Tela de pré-carregamento
         <div id="preloader">
             <div>
                 <i class="fa-solid fa-spinner animacao_rodando"></i>
@@ -87,6 +92,17 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="aba_de_categorias">
+                            <span>Sistema de registros</span>
+                            <ul>
+                                <li>
+                                    <a href="/sistema_de_registro/cadastro">Cadastro</a>
+                                </li>
+                                <li>
+                                    <a href="/sistema_de_registro/login">Login</a>
+                                </li>
+                            </ul>
+                        </li>
                         <!--
                             <li class="aba_de_categorias">
                                 <span>Aba de categorias 1</span>
@@ -109,7 +125,7 @@
         </header>
         
         <main>
-            <?php require($layout_arquivo_conteudo); ?>
+            <?php convocar_rota($layout_arquivo_conteudo); ?>
         </main>
         
         <hr />
@@ -139,8 +155,16 @@
                                 Instragram: <a href="https://www.instagram.com/rafael6ramos/" target="_blank" rel="nofollow">rafael6ramos</a>
                             </p>
                             <p>
+                                <i class="fa-brands fa-linkedin-in"></i>
+                                Linkedin: <a href="https://www.linkedin.com/in/rafael-ramos-3a330019b/" target="_blank" rel="nofollow">Rafael Ramos</a>
+                            </p>
+                            <p>
                                 <i class="fa-solid fa-envelope"></i>
-                                E-mail: <a href="mailto:rafael_ramos@rancode.com.br" target="_blank" rel="nofollow">rafael_ramos@rancode.com.br</a>
+                                E-mail: <a href="mailto:rafael6ramos@gmail.com" target="_blank" rel="nofollow">rafael6ramos@gmail.com</a>
+                            </p>
+                            <p>
+                                <i class="fas fa-mobile-alt"></i>
+                                Celular de contato: <a href="tel:+5511950503563">+55 (11) 9-5050-3563</a>
                             </p>
                         </address>
                     </div>
@@ -148,7 +172,7 @@
                 
                 <div id="area_copyright">
                     <hr />
-                    <p>Atualmente, em 2023, sou estudante da <abbr title="Universidade Tecnológica Federal do Paraná">UTFPR</abbr>, Campus Ponta Grossa do curso de Bacharelado em Ciências da Computação</p>
+                    
                     <p>&#169; <?php echo( (new DateTime('now', new DateTimeZone('America/Sao_Paulo')))->format('Y') ); ?> RanCode</p>
                 </div>
             </div>
