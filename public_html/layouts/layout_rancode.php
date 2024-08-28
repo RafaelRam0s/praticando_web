@@ -105,10 +105,13 @@
                                     <a href="/sistema_de_registro/login">Login</a>
                                 </li>
                                 <li>
-                                    <a href="#">Esqueci a senhha</a>
+                                    <a href="/sistema_de_registro/esqueci_a_senha">Esqueci a senhha</a>
                                 </li>
                                 <li>
-                                    <a href="#">Alterar senha</a>
+                                    <a href="/sistema_de_registro/esqueci_a_senha/alterar_senha">Alterar senha</a>
+                                </li>
+                                <li>
+                                    <a href="/sistema_de_registro/area_logado">Área para logados</a>
                                 </li>
                             </ul>
                         </li>

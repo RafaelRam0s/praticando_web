@@ -63,7 +63,7 @@
     <p>Preencha o formulário para que participe do nosso sistema, caso já possua uma conta entre <a href="/sistema_de_registro/login">aqui</a></p>
 
     <div>
-        <form id="form_cadastro" method="POST" action="./cadastro/post_cadastro/index.php">
+        <form id="form_cadastro" method="POST" action="/sistema_de_registro/cadastro/post_cadastro/index.php">
             
             <h3>Dados pessoais</h3>
             
