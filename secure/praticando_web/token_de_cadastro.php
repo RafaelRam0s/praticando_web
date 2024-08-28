@@ -44,41 +44,25 @@ function secure_token_de_cadastro_criar($id_usuario, $valor) {
 }
 
 // ------------------------------------------------------------------------
-// Atualizar 
+// Visualizar 
 // ------------------------------------------------------------------------
-function secure_token_de_cadastro_atualizar_data_de_uso($valor) {
+function secure_token_de_cadastro_buscar_valor($valor) {
     
     convocar_rota('db/praticando_web/token_de_cadastro');
 
-    $retorno = tb_token_de_cadastro_buscar_valor($valor);
+    return  tb_token_de_cadastro_buscar_valor($valor);
 
-    if ($retorno['sucesso'] == 200) {
+}
 
-        if(empty($retorno['conteudo'][0]['data_de_uso'])) {
-            date_default_timezone_set('UTC');
-            $data_atual = new DateTime();
+// ------------------------------------------------------------------------
+// Atualizar 
+// ------------------------------------------------------------------------
+function secure_token_de_cadastro_atualizar_data_de_uso($id) {
 
-            $data_de_expiracao = new DateTime($retorno['conteudo'][0]['data_de_expiracao']);
-
-            if ($data_de_expiracao > $data_atual) {
-                return tb_token_de_cadastro_atualizar_data_de_uso($retorno['conteudo'][0]['id'], $data_atual->format('Y-m-d H:i:s'));
-            } else {
-                return [
-                    'sucesso' => 204,
-                    'mensagem' => 'Token expirado, solicite um novo',
-                    'conteudo' => null
-                ];
-            }
-        } else {
-            return [
-                'sucesso' => 205,
-                'mensagem' => 'Token inválido, já foi usado',
-                'conteudo' => null
-            ];
-        }
-    }
-
-    return $retorno;
+    date_default_timezone_set('UTC');
+    $data_atual = new DateTime();
+    
+    return tb_token_de_cadastro_atualizar_data_de_uso($id, $data_atual->format('Y-m-d H:i:s'));
 }
 
 // ------------------------------------------------------------------------

@@ -189,7 +189,7 @@ function tb_token_de_cadastro_buscar_valor(string $valor) {
     return [
         'sucesso' => 200,
         'mensagem' => 'Operação efetuada com sucesso!',
-        'conteudo' => $dado_encontrado
+        'conteudo' => $dado_encontrado[0]
     ];
 }
 

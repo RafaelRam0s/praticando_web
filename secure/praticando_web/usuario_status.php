@@ -54,11 +54,11 @@ function secure_usuario_status_situacao($id_usuario) {
 // ------------------------------------------------------------------------
 // Apagar
 // ------------------------------------------------------------------------
-function secure_usuario_status_excluir($id_usuario_status) {
+function secure_usuario_status_excluir($id) {
     
     convocar_rota('db/praticando_web/usuario_status');
 
-    return tb_usuario_status_excluir($id_usuario_status);
+    return tb_usuario_status_excluir($id);
 }
 
 ?>
