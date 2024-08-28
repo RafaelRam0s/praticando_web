@@ -3,8 +3,7 @@
 // Arquivo responsável por fazer a validação de campos input
 
 // Validar nome
-function validar_nome(string $nome) 
-{    
+function validar_nome(string $nome) {    
     // Verificar se possui espaços em branco
     if (mb_strlen($nome) != mb_strlen(trim($nome)))
     {
@@ -98,6 +97,7 @@ function validar_senha(string $senha) {
         return [false, 'A senha possui uma quantidade de caracteres inválida'];
     }
     
+    // Possui ao menos 1 letra minúscula, 1 letra maiúscula, 1 número e 1 caracter especial
     if ( preg_match('/[a-z]/', $senha) != 1 ) {
         return [false, 'A senha deve conter ao menos 1 caracter minúsculo'];
     } else if ( preg_match('/[A-Z]/', $senha) != 1 ) {

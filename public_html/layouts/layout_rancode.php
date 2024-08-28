@@ -99,7 +99,16 @@
                                     <a href="/sistema_de_registro/cadastro">Cadastro</a>
                                 </li>
                                 <li>
+                                    <a href="/sistema_de_registro/cadastro/confirmacao_cadastro">Validação de Cadastro</a>
+                                </li>
+                                <li>
                                     <a href="/sistema_de_registro/login">Login</a>
+                                </li>
+                                <li>
+                                    <a href="#">Esqueci a senhha</a>
+                                </li>
+                                <li>
+                                    <a href="#">Alterar senha</a>
                                 </li>
                             </ul>
                         </li>

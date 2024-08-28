@@ -1,0 +1,13 @@
+
+
+Javascript:
+    <script> window.alert('Você foi raqueado por Javascript'); </script>
+
+PHP:
+    <?php echo('Você foi raqueado por PHP'); ?>
+
+MySQL:
+    CREATE TABLE hackeado (id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, assunto VARCHAR(255) NOT NULL);
+
+
+

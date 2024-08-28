@@ -45,15 +45,13 @@ function carregarArquivo(string $caminho_da_url)
         $layout_titulo = 'Cadastramento';
         $layout_arquivo_conteudo = 'site/sistema_de_registro/cadastro';
 
-    } elseif ($rota_limpa == 'sistema_de_registro/cadastro/confirme_email') {
+    } elseif ($rota_limpa == 'sistema_de_registro/cadastro/confirmacao_cadastro') {
 
-        $layout_titulo = 'Confirme o e-mail';
-        $layout_arquivo_conteudo = 'site/sistema_de_registro/cadastro/confirme_email';
+        $layout_titulo = 'Confirme o Cadastro';
+        $layout_arquivo_conteudo = 'site/sistema_de_registro/cadastro/confirmacao_cadastro';
 
     } elseif ($rota_limpa == 'sistema_de_registro/login') {
 
-        convocar_rota('site/sistema_de_registro/login/header_login');
-        
         $layout_titulo = 'Login';
         $layout_arquivo_conteudo = 'site/sistema_de_registro/login';
 

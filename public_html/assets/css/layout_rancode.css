@@ -101,7 +101,6 @@ Classes montadas
     border: 3px solid var(--cor_z2);
     display: inline-block;
     height: 32px;
-    width: 84px;
 }
 
 .display_none {
@@ -373,8 +372,10 @@ Ajustes para mobile
     /* Fim Rodape */
 }
 
+/* 
 @media print {
     body::before {
         content: "Esta mensagem só aparecerá ao solicitar a impressão da página, com o ctrl+p";
     }
-}
+} 
+*/

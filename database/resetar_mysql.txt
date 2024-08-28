@@ -1,0 +1,10 @@
+# O código a seguir limpa todas as linhas das tabelas e reinicia os valores
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- Gerar comandos TRUNCATE para todas as tabelas
+SELECT CONCAT('TRUNCATE TABLE `', table_name, '`;') 
+FROM information_schema.tables 
+WHERE table_schema = 'seu_banco_de_dados';
+
+SET FOREIGN_KEY_CHECKS = 1;

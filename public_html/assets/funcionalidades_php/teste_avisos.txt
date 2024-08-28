@@ -1,0 +1,2 @@
+[27-Aug-2024 15:52:04 UTC] PHP Warning:  Este é um erro de teste. in C:\Users\rafae\OneDrive\Documentos\GitHub\praticando_web\teste.php on line 8
+[27-Aug-2024 15:52:10 UTC] PHP Warning:  Este é um erro de teste. in C:\Users\rafae\OneDrive\Documentos\GitHub\praticando_web\teste.php on line 8

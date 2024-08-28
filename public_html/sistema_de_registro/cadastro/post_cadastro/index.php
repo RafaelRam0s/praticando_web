@@ -2,14 +2,11 @@
     require_once(__DIR__ . '/../../../../configuracoes/rotas.php');
     
     // Verifica se o request_method existe, pq vai que a pessoa esteja usando um console para acessar o site
-    if (isset($_SERVER['REQUEST_METHOD']) == true)
-    {
+    if (isset($_SERVER['REQUEST_METHOD']) == true) {
         // Verifica se o site recebeu uma solicitação via post
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
-        {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $variaveis_da_pagina = 
-            [
+            $variaveis_da_pagina = [
                 'inputs' => [
                     'name_nome_completo' => null,
                     'name_dia_nascimento' => null,
@@ -56,15 +53,14 @@
 
             // Verifica se todos os campos foram passados através do método POST
                 $chaves_do_vetor = array_keys($variaveis_da_pagina['inputs']);
-                for ($contador = 0; $contador < count($chaves_do_vetor); $contador++)
-                {
+                for ($contador = 0; $contador < count($chaves_do_vetor); $contador++) {
                     if (!isset($_POST[$chaves_do_vetor[$contador]]))
                     {
                         $variaveis_da_pagina['inputs'][$chaves_do_vetor[$contador]] = 'O campo "' . $relacao_name_com_campo[$chaves_do_vetor[$contador]] . '" não foi definido!';
                     }
                 }
 
-                retornar_pagina_com_erros();
+                retornar_pagina_com_avisos();
             //
 
             // Retornar o valor do campo para o usuário não ter que preencher tudo novamente
@@ -86,56 +82,46 @@
 
             // Verifica os campos que ficaram vazios
                 $chaves_do_vetor = array_keys($variaveis_da_pagina['inputs']);
-                for ($contador = 0; $contador < count($chaves_do_vetor); $contador++)
-                {
-                    $_POST[$chaves_do_vetor[$contador]] = trim($_POST[$chaves_do_vetor[$contador]]);
-
-                    if (empty($_POST[$chaves_do_vetor[$contador]]))
-                    {
+                for ($contador = 0; $contador < count($chaves_do_vetor); $contador++) {
+                    if (empty($_POST[$chaves_do_vetor[$contador]])) {
                         $variaveis_da_pagina['inputs'][$chaves_do_vetor[$contador]] = 'O campo "' . $relacao_name_com_campo[$chaves_do_vetor[$contador]] . '" está vazio!';
+
+                    } elseif ($_POST[$chaves_do_vetor[$contador]] != trim($_POST[$chaves_do_vetor[$contador]])) {
+                        $variaveis_da_pagina['inputs'][$chaves_do_vetor[$contador]] = 'O campo "' . $relacao_name_com_campo[$chaves_do_vetor[$contador]] . '" possui espaços em branco no inicio ou no final!';
                     }
-                    
                 }
 
-                retornar_pagina_com_erros();
+                retornar_pagina_com_avisos();
             //
 
             // Verifica se cada campo foi preenchido com a quantidade certa de caracteres
                 convocar_rota('secure/validacoes_de_cadastro');
                 
-                if ( (strlen($_POST['name_nome_completo']) < 2) || (strlen($_POST['name_nome_completo']) > 255) )
-                {
+                if ( (strlen($_POST['name_nome_completo']) < 2) || (strlen($_POST['name_nome_completo']) > 255) ) {
                     $variaveis_da_pagina['inputs']['name_nome_completo'] = 'O campo "' . $relacao_name_com_campo['name_nome_completo'] . '" não possui a quantidade certa de caracteres';
                 }
-                if ( (strlen($_POST['name_dia_nascimento']) < 1) || (strlen($_POST['name_dia_nascimento']) > 2) )
-                {
+                if ( (strlen($_POST['name_dia_nascimento']) < 1) || (strlen($_POST['name_dia_nascimento']) > 2) ) {
                     $variaveis_da_pagina['inputs']['name_dia_nascimento'] = 'O campo "' . $relacao_name_com_campo['name_dia_nascimento'] . '" não possui a quantidade certa de caracteres';
                 }
-                if ( (strlen($_POST['name_mes_nascimento']) < 1) || (strlen($_POST['name_mes_nascimento']) > 2) )
-                {
+                if ( (strlen($_POST['name_mes_nascimento']) < 1) || (strlen($_POST['name_mes_nascimento']) > 2) ) {
                     $variaveis_da_pagina['inputs']['name_mes_nascimento'] = 'O campo "' . $relacao_name_com_campo['name_mes_nascimento'] . '" não possui a quantidade certa de caracteres';
                 }
-                if ( (strlen($_POST['name_ano_nascimento']) < 1) || (strlen($_POST['name_ano_nascimento']) > 4) )
-                {
+                if ( (strlen($_POST['name_ano_nascimento']) < 1) || (strlen($_POST['name_ano_nascimento']) > 4) ) {
                     $variaveis_da_pagina['inputs']['name_ano_nascimento'] = 'O campo "' . $relacao_name_com_campo['name_ano_nascimento'] . '" não possui a quantidade certa de caracteres';
                 }
-                if ( (strlen($_POST['name_email']) < 3) || (strlen($_POST['name_email']) > 255) )
-                {
+                if ( (strlen($_POST['name_email']) < 3) || (strlen($_POST['name_email']) > 255) ) {
                     $variaveis_da_pagina['inputs']['name_email'] = 'O campo "' . $relacao_name_com_campo['name_email'] . '" não possui a quantidade certa de caracteres';
                 }
-                if ( (strlen($_POST['name_confirmacao_de_email']) < 3) || (strlen($_POST['name_confirmacao_de_email']) > 255) )
-                {
+                if ( (strlen($_POST['name_confirmacao_de_email']) < 3) || (strlen($_POST['name_confirmacao_de_email']) > 255) ) {
                     $variaveis_da_pagina['inputs']['name_confirmacao_de_email'] = 'O campo "' . $relacao_name_com_campo['name_confirmacao_de_email'] . '" não possui a quantidade certa de caracteres';
                 }
-                if ( (strlen($_POST['name_senha']) < 8) || (strlen($_POST['name_senha']) > 255) )
-                {
+                if ( (strlen($_POST['name_senha']) < 8) || (strlen($_POST['name_senha']) > 255) ) {
                     $variaveis_da_pagina['inputs']['name_senha'] = 'O campo "' . $relacao_name_com_campo['name_senha'] . '" não possui a quantidade certa de caracteres';
                 }
-                if ( (strlen($_POST['name_confirmacao_senha']) < 8) || (strlen($_POST['name_confirmacao_senha']) > 255) )
-                {
+                if ( (strlen($_POST['name_confirmacao_senha']) < 8) || (strlen($_POST['name_confirmacao_senha']) > 255) ) {
                     $variaveis_da_pagina['inputs']['name_confirmacao_senha'] = 'O campo "' . $relacao_name_com_campo['name_confirmacao_senha'] . '" não possui a quantidade certa de caracteres';
                 }
-                retornar_pagina_com_erros();
+                retornar_pagina_com_avisos();
             //
 
             // Validação dos valores dos campos informados
@@ -183,13 +169,11 @@
                 //
 
                 // Verificar e-mail e confirmação de e-mail
-                    if (strrpos($_POST['name_email'], '@') === false)
-                    {
+                    if (strrpos($_POST['name_email'], '@') === false) {
                         $variaveis_da_pagina['inputs']['name_email'] = 'Este e-mail não pode ser cadastrado';
                     }
 
-                    if ($_POST['name_email'] != $_POST['name_confirmacao_de_email'])
-                    {
+                    if ($_POST['name_email'] != $_POST['name_confirmacao_de_email']) {
                         $variaveis_da_pagina['inputs']['name_confirmacao_email'] = 'O E-mail e a Confirmação de E-mail devem ser iguais';
                     }
                 //
@@ -223,55 +207,100 @@
                     }
                 //
 
-                retornar_pagina_com_erros();
+                retornar_pagina_com_avisos();
             //
 
             // Ver se o usuário não possui cadastro
                 convocar_rota('secure/praticando_web/usuario');
-                $usuario = secure_usuario_ver($_POST['name_email']);
+                $usuario = secure_usuario_existe_email($_POST['name_email']);
                 
-                if ($usuario['sucesso'] == 204)
-                {
+                if ($usuario['sucesso'] == 204) {
                     // Criar conta
-                    $novo_usuario = secure_usuario_registrar(
-                        email: $_POST['name_email'],
-                        senha: $_POST['name_senha'],
-                        nome: $_POST['name_nome_completo'],
-                        data_nascimento: (
-                            (string) $_POST['name_ano_nascimento'] 
-                            . '-' . $_POST['name_mes_nascimento']
-                            . '-' . $_POST['name_dia_nascimento']
-                        )
-                    );
+                        $novo_usuario = secure_usuario_registrar(
+                            email: $_POST['name_email'],
+                            senha: $_POST['name_senha'],
+                            nome: $_POST['name_nome_completo'],
+                            data_nascimento: (
+                                (string) $_POST['name_ano_nascimento'] 
+                                . '-' . $_POST['name_mes_nascimento']
+                                . '-' . $_POST['name_dia_nascimento']
+                            )
+                        );
+                        
+                        if ($novo_usuario['sucesso'] != 200) {
+                            $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
+                            retornar_pagina_com_avisos();
+                        }
+                    //
                     
-                    if ($novo_usuario['sucesso'] != 200)
-                    {
-                        $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Problema ao registrar usuário no banco';
-                        retornar_pagina_com_erros();
-                    }
-                    
-                    // @@@ Gerar um token de acesso
-                    
-                    // @@@ Enviar e-mail de confirmação de cadastro
-                    
-                    // @@@ Se der algo errado
-                        // Exclua os registros criados
-                        // Retorne para a página de cadastro, avisando o erro
+                    // Gerar status pendente para o usuario
+                        convocar_rota('secure/praticando_web/usuario_status');
+                        $novo_status = secure_usuario_status_criar($novo_usuario['conteudo']['id'], 'Pendente', 'Cadastro Criado');
+                        if ($novo_status['sucesso'] != 200) {
+                            
+                            secure_usuario_excluir(email: $_POST['name_email'], senha: $_POST['name_senha']);
+
+                            $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
+                            retornar_pagina_com_avisos();
+                        }
+                    //
+
+                    // Gerar um token de acesso
+                        convocar_rota('secure/praticando_web/token_de_cadastro');
+                        $token_de_cadastro = gerarTokenAlfanumerico(255);
+                        $novo_token = secure_token_de_cadastro_criar($novo_usuario['conteudo']['id'], $token_de_cadastro);
+
+                        if ($novo_token['sucesso'] != 200) {
+                            
+                            secure_usuario_status_excluir($novo_status['conteudo']['id']);
+                            secure_usuario_excluir(email: $_POST['name_email'], senha: $_POST['name_senha']);
+
+                            $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
+                            retornar_pagina_com_avisos();
+                        }
+                    //
+
+                    // Registrar envio de e-mail
+                        convocar_rota('secure/praticando_web/historico_de_email');
+                        $historico_de_email = secure_historico_de_email_criar($novo_usuario['conteudo']['id'], 'Confimação de Cadastro');
+                        
+                        if ($historico_de_email['sucesso'] != 200) {
+                                    
+                            secure_token_de_cadastro_excluir($novo_token['conteudo']['id']);
+                            secure_usuario_status_excluir($novo_status['conteudo']['id']);
+                            secure_usuario_excluir(email: $_POST['name_email'], senha: $_POST['name_senha']);
+
+                            $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
+                            retornar_pagina_com_avisos();
+                        }
+                    //
+
+                    // Enviar e-mail de confirmação de cadastro
+                        convocar_rota('email/confirmar_cadastro');
+                        $envio_do_email = email_confirmar_cadastro($_POST['name_email'], $token_de_cadastro);
+
+                        if ($envio_do_email['sucesso'] != 200) {
+                                
+                            secure_historico_de_email_excluir($historico_de_email['conteudo']['id']);
+                            secure_token_de_cadastro_excluir($novo_token['conteudo']['id']);
+                            secure_usuario_status_excluir($novo_status['conteudo']['id']);
+                            secure_usuario_excluir(email: $_POST['name_email'], senha: $_POST['name_senha']);
+
+                            $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
+                            retornar_pagina_com_avisos();
+                        }
+                    //
+
                     // Se der certo, redirecione para a página de cadastro bem sucedido
-                    header('Location: /sistema_de_registro/cadastro/confirme_email');
-
+                    header('Location: /sistema_de_registro/cadastro/confirmacao_cadastro');
+                    die();
+                } elseif ($usuario['sucesso'] == 200) {
+                    $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'E-mail já registrado. Cadastro Indisponíel!';
+                    retornar_pagina_com_avisos();
+                } else {
+                    $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
+                    retornar_pagina_com_avisos();
                 }
-                    
-                    
-                // Se possui
-                    // Verifique o status do usuário
-                        // Se PENDENTE
-                            // Mandar um novo e-mail
-                            // Se der certo, redirecione para a página de cadastro bem sucedido
-                        // Se ATIVO
-                            // Mandar um e-mail de recuperar senha
-                            // Se der certo, redirecione para a página de cadastro bem sucedido
-
             //
         }
     }
@@ -279,7 +308,7 @@
 
 
 
-    function retornar_pagina_com_erros() {
+    function retornar_pagina_com_avisos() {
         
         global $variaveis_da_pagina;
         $possui_aviso = false;
@@ -322,12 +351,7 @@
             header('Location: /sistema_de_registro/cadastro');
             die();
         }
-
-        
     }
 
-
-
     convocar_rota('controllers/controller');
-
 ?>

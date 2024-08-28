@@ -1,31 +1,55 @@
+# Levando em conta as configurações que eu quero que você garanta:
+# - Independente de qual rota o usuário utilizar ele seja redirecionado para o arquivo controller.php, únicas excessões são o /robots.txt, /sitemap.xml e o /LICENSE
+# - Se ocorrer algum erro na aplicação registre no arquivo /historico_de_erros.txt e redirecionar para o /erro404.php
+# - Se o usuário acessar uma rota http, mande ele para a https se disponivel
+# - Previna o acesso ao arquivo .htaccess
+# - Desativar a listagem de diretórios caso não encontre um arquivo
+# - Proteções de cabeçalho:
+# - - Proteger contra ataques de clickjacking.
+# - - Melhorar a proteção contra XSS.
+# - - Controlar a inclusão de conteúdo apenas de fontes confiáveis.
+# - - Prevenir que o navegador faça "sniffing" do tipo de conteúdo.
+# - - Evitar que dados sensíveis sejam armazenados em cache.
 
-
-# As 3 linhas abaixo fazem o redirecionamento do http para o https
+# Ativa o módulo de reescrita
 RewriteEngine On
+
+# Redireciona HTTP para HTTPS, se disponível
 RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^localhost [NC]
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Redireciona de www para não-www (se necessário)
+# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+# RewriteRule ^(.*)$ http://%1/$1 [L,R=301]
 
-# Habilite as 3 linhas abaixo caso precise configurar em produção um erro
-php_flag log_errors on
-php_value error_reporting 32767
-php_value error_log "error_log.txt"
+# Exceções: não redirecionar para controller.php para /robots.txt, /sitemap.xml e /LICENSE
+RewriteCond %{REQUEST_URI} !^/robots\.txt$ [NC]
+RewriteCond %{REQUEST_URI} !^/sitemap\.xml$ [NC]
+RewriteCond %{REQUEST_URI} !^/LICENSE$ [NC]
+RewriteRule ^(.*)$ controller.php [L]
 
+# Protege contra acesso direto ao .htaccess
+<Files .htaccess>
+    Require all denied
+</Files>
 
-# Redireciona em caso de erro 404 no site para a página 404.php
-ErrorDocument 404 /404/index.php
+# Desativa a listagem de diretórios
+Options -Indexes
 
+# Protege contra clickjacking
+Header always append X-Frame-Options SAMEORIGIN
+# Protege contra cross-site scripting (XSS)
+Header set X-XSS-Protection "1; mode=block"
+# Protege contra a inclusão de conteúdo inseguro
+Header set Content-Security-Policy "default-src 'self';"
+# Desativa o sniffing de MIME types
+Header set X-Content-Type-Options "nosniff"
+# Desativa o cache para dados sensíveis
+Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
 
-# Nega a permissão de qualquer usuário tentar acessar diretamente os arquivos listados
-RewriteEngine on
-RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?teste.com.br/.*$      [NC]
-RewriteRule .*\.(avi|bmp|css|exe|gif|gitignore|htm|html|ico|jpeg|jpg|js|json|less|min|mov|mp3|mp4|mpeg|mpg|ogv|pdf|php|png|psd|rar|scss|sql|svg|swf|tiff|ttf|webp|wma|woff2|yml|zip)$ http://teste.com.br/404 [R,NC]
-
-
-# Forçar o usuário a sempre que passar por qualquer url ser redirecionado para outra específica
-RewriteEngine On
-RewriteBase /public_html/
-RewriteCond %{REQUEST_URI} !^/controllers/controller.php
-RewriteRule ^(.*)$ /controller.php [L]
-
-
+# Captura erros e registra em historico_de_erros.txt
+# E redireciona para erro404.php
+ErrorLog /historico_de_erros.txt
+ErrorDocument 500 /erro404.php
+ErrorDocument 404 /erro404.php

@@ -15,7 +15,7 @@ CREATE TABLE usuario (
     data_de_cadastro DATETIME NOT NULL
 );
 */
-require_once(__DIR__ . '/../../../configuracoes/rotas.php');
+require_once(__DIR__ . '/../../configuracoes/rotas.php');
 
 
 // ------------------------------------------------------------------------
@@ -71,6 +71,8 @@ function tb_usuario_criar(
             ':chave_criptografica' => AES_KEY_DB_PRATICANDO_WEB
         ]);
 
+        $id_inserido = $conexao_db->lastInsertId();
+
         if($comando->rowCount() > 0){
             $conexao_db->commit();
         } else {
@@ -78,7 +80,7 @@ function tb_usuario_criar(
             return [
                 'sucesso' => 400,
                 'mensagem' => 'Erro no banco de dados, falta de confirmação do banco, verificar criação do registro',
-                'conteudo' => []
+                'conteudo' => null
             ];
         }
 
@@ -89,7 +91,7 @@ function tb_usuario_criar(
         return [
             'sucesso' => 400,
             'mensagem' => 'Erro no banco de dados, erro ao criar registro',
-            'conteudo' => []
+            'conteudo' => null
         ];
     }
 
@@ -97,63 +99,14 @@ function tb_usuario_criar(
 
     return [
         'sucesso' => 200,
-        'mensagem' => 'Operação bem sucedida, registro criado',
-        'conteudo' => []
+        'mensagem' => 'Operação efetuada com sucesso!',
+        'conteudo' => ['id' => $id_inserido]
     ];
 }
 
 // ------------------------------------------------------------------------
 // Visualizar 
 // ------------------------------------------------------------------------
-function tb_usuario_buscar_registros($quantidade_de_registros, $pagina_de_busca)
-{
-    convocar_rota('config/configuracoes');
-    convocar_rota('config/db_praticando_web');
-    $conexao_db = db_praticando_web_gerar_conexao();
-
-    try {
-
-        // Calcular o offset com base na página e quantidade
-
-        $comando = $conexao_db->prepare(
-            'SELECT 
-                id,
-                AES_DECRYPT(email, UNHEX(SHA2(:chave_criptografica, 512))) as email,
-                AES_DECRYPT(senha, UNHEX(SHA2(:chave_criptografica, 512))) as senha,
-                nome,
-                data_nascimento,
-                termos_de_uso_aceito,
-                politica_de_privacidade_aceito,
-                data_de_cadastro
-            FROM usuario
-            ORDER BY id
-            LIMIT :quantidade OFFSET :offset'
-        );
-
-        $comando->execute([
-            ':quantidade' => (int) $quantidade_de_registros,
-            ':offset' => (int) $pagina_de_busca,
-            ':chave_criptografica' => AES_KEY_DB_PRATICANDO_WEB
-        ]);
-
-        $resultados = $comando->fetchAll(PDO::FETCH_ASSOC);
-
-        return [
-            'status' => 200,
-            'mensagem' => 'Operação bem sucedida',
-            'conteudo' => $resultados
-        ];
-
-    } catch (Exception $e) {
-        error_log($e, 0);
-        return [
-            'status' => 400,
-            'mensagem' => 'Erro no banco de dados; erro ao buscar registros',
-            'conteudo' => []
-        ];
-    }
-}
-
 function tb_usuario_buscar_por_email(string $email)
 {
     convocar_rota('config/configuracoes');
@@ -174,11 +127,72 @@ function tb_usuario_buscar_por_email(string $email)
             politica_de_privacidade_aceito,
             data_de_cadastro
             FROM usuario 
-            WHERE email = AES_ENCRYPT(:email, UNHEX(SHA2(:chave_criptografica, 512)));
+            WHERE email = AES_ENCRYPT(:email, UNHEX(SHA2(:chave_criptografica, 512)))
             LIMIT 1'
         );
 
-        $comando->bindValue(':email', (string) $email, );
+        $comando->execute([
+            ':email' => $email,
+            ':chave_criptografica' => AES_KEY_DB_PRATICANDO_WEB
+        ]);
+
+        $dado_encontrado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        
+    } catch (Exception $e) {
+        
+        $conexao_db->rollBack();
+        
+        error_log($e, 0);
+
+        return [
+            'sucesso' => 400,
+            'mensagem' => 'Erro no banco de dados; erro ao buscar registro',
+            'conteudo' => null
+        ];
+        
+    }
+
+    if (count($dado_encontrado) == 0)
+    {
+        return [
+            'sucesso' => 204,
+            'mensagem' => 'Registro não encontrado',
+            'conteudo' => null
+        ];
+    }
+
+    return [
+        'sucesso' => 200,
+        'mensagem' => 'Operação efetuada com sucesso!',
+        'conteudo' => $dado_encontrado
+    ];
+}
+
+function tb_usuario_buscar_por_id(string $id)
+{
+    convocar_rota('config/configuracoes');
+    convocar_rota('config/db_praticando_web');
+    $conexao_db = db_praticando_web_gerar_conexao();
+    
+    try {
+        
+        // Selecionar a tabela
+        $comando = $conexao_db->prepare(
+            'SELECT 
+            id,
+            AES_DECRYPT(email, UNHEX(SHA2(:chave_criptografica, 512))) email,
+            AES_DECRYPT(senha, UNHEX(SHA2(:chave_criptografica, 512))) senha,
+            nome,
+            data_nascimento,
+            termos_de_uso_aceito,
+            politica_de_privacidade_aceito,
+            data_de_cadastro
+            FROM usuario 
+            WHERE email = AES_ENCRYPT(:email, UNHEX(SHA2(:chave_criptografica, 512)))
+            LIMIT 1'
+        );
+
+        $comando->bindValue(':email', (string) $id, );
         $comando->bindValue(':chave_criptografica', AES_KEY_DB_PRATICANDO_WEB);
 
         $comando->execute();
@@ -194,7 +208,7 @@ function tb_usuario_buscar_por_email(string $email)
         return [
             'sucesso' => 400,
             'mensagem' => 'Erro no banco de dados; erro ao buscar registro',
-            'conteudo' => []
+            'conteudo' => null
         ];
         
     }
@@ -204,24 +218,77 @@ function tb_usuario_buscar_por_email(string $email)
         return [
             'sucesso' => 204,
             'mensagem' => 'Registro não encontrado',
-            'conteudo' => []
+            'conteudo' => null
         ];
     }
 
     return [
         'sucesso' => 200,
-        'mensagem' => null,
-        'conteudo' => [
-            $dado_encontrado
-        ]
+        'mensagem' => 'Operação efetuada com sucesso!',
+        'conteudo' => $dado_encontrado
+    ];
+}
+
+// ------------------------------------------------------------------------
+// Atualizar 
+// ------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------
+// Apagar
+// ------------------------------------------------------------------------
+function tb_usuario_excluir($id) {
+    convocar_rota('config/db_praticando_web');
+    $conexao_db = db_praticando_web_gerar_conexao();
+
+    try {
+        $conexao_db->beginTransaction();
+
+        // Prepare o comando de exclusão
+        $comando = $conexao_db->prepare(
+            'DELETE FROM usuario
+            WHERE id = :id;'
+        );
+
+        // Execute o comando com o id fornecido
+        $comando->execute([
+            ':id' => $id
+        ]);
+
+        if($comando->rowCount() > 0) {
+            $conexao_db->commit();
+        } else {
+            $conexao_db->rollBack();
+            return [
+                'sucesso' => 204,
+                'mensagem' => 'Operação efetuada com sucesso! Nenhum registro encontrado para excluir',
+                'conteudo' => null
+            ];
+        }
+
+    } catch (Exception $e) {
+        $conexao_db->rollBack();
+        error_log("\033[41m\033[97m" . $e . "\033[0m", 0);
+        
+        return [
+            'sucesso' => 400,
+            'mensagem' => 'Erro no banco de dados, erro ao excluir registro',
+            'conteudo' => null
+        ];
+    }
+
+    $comando->closeCursor();
+
+    return [
+        'sucesso' => 200,
+        'mensagem' => 'Operação efetuada com sucesso! Registro excluído',
+        'conteudo' => null
     ];
 }
 
 // ------------------------------------------------------------------------
 // Funcionalidades 
 // ------------------------------------------------------------------------
-function tb_usuario_resetar_auto_increment()
-{
+function tb_usuario_resetar_auto_increment() {
     // Conectar com o banco
     convocar_rota('config/db_praticando_web');
     $conexao_db = db_praticando_web_gerar_conexao();
@@ -236,14 +303,14 @@ function tb_usuario_resetar_auto_increment()
         return [
             'sucesso' => 400,
             'mensagem' => 'Erro no banco de dados, erro ao resetar o auto_increment' . $e,
-            'conteudo' => []
+            'conteudo' => null
         ];
     }
 
     return [
         'sucesso' => 200,
-        'mensagem' => 'Operação bem sucedida, resetado o auto_increment',
-        'conteudo' => []
+        'mensagem' => 'Operação efetuada com sucesso! Resetado o auto_increment!',
+        'conteudo' => null
     ];
 }
 
