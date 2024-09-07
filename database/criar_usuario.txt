@@ -1,0 +1,38 @@
+
+Código para criar um usuário:
+    
+    CREATE USER 'nome_do_usuario'@'host' IDENTIFIED BY 'senha';
+    
+    'nome_do_usuario' é o nome do novo usuário.
+    'host' define de onde o usuário pode se conectar (ex: 'localhost' para conexões locais ou '%' para qualquer IP).
+    'senha' é a senha para o novo usuário.
+
+
+Código para fornecer acesso as tabelas do banco
+    
+    CREATE USER 'joao'@'localhost' IDENTIFIED BY 'senha123';
+    GRANT tipo_de_permissao ON base_de_dados.tabela TO 'nome_do_usuario'@'host';
+    FLUSH PRIVILEGES;
+
+    tipo_de_permissao pode ser ALL PRIVILEGES, SELECT, INSERT, UPDATE, DELETE.
+    base_de_dados é o nome da base de dados.
+    tabela é a tabela específica ou * para todas as tabelas.
+
+Código para ver permissões:
+    SHOW GRANTS FOR 'nome_do_usuario'@'host';
+    
+Revogando permissões:
+    REVOKE tipo_de_permissao ON base_de_dados.tabela FROM 'nome_do_usuario'@'host';
+    FLUSH PRIVILEGES;
+
+Excluindo usuário:
+    DROP USER 'nome_do_usuario'@'host';
+
+Permitir usuário a criar outros usuários e manipula-los livremente:
+    GRANT CREATE USER, GRANT OPTION ON *.* TO 'novo_usuario'@'localhost';
+    FLUSH PRIVILEGES;
+
+Criando usuário com todos os acessos:
+    GRANT ALL PRIVILEGES ON *.* TO 'user_testes'@'localhost' WITH GRANT OPTION;
+    FLUSH PRIVILEGES;
+    

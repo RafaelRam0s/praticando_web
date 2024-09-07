@@ -3,20 +3,14 @@
 /** 
     * @return email_convidar_novo_usuario 
     * [
-    *     'funcao_executada' => bool,
-    *     'retorno' => [
-    *         'sucesso' => bool,
-    *         'mensagem' => ?string
-    *     ]
-    * ]
+    *     'sucesso' => int,
+    *     'mensagem' => ?string,
+    *     'conteudo' => ?string
+    * ];
 */
 function email_convidar_novo_usuario(
     string $email
-)
-{
-    date_default_timezone_set('UTC');
-    $data_atual = new DateTime();
-
+) {
     try {
         
         $from = "Rancode";
@@ -74,30 +68,27 @@ function email_convidar_novo_usuario(
 
         if (mail($to, $subject, $message, $headers, "-f " . $from)) {
             return [
-                'funcao_executada' => true,
-                'retorno' => [
-                    'sucesso' => true
-                ]
+                'sucesso' => 200,
+                'mensagem' => 'Operação efetuada com sucesso! E-mail enviado',
+                'conteudo' => null
             ];
         } else {
+            trigger_error('Erro ao enviar email', E_USER_WARNING);
+        
             return [
-                'funcao_executada' => true,
-                'retorno' => [
-                    'sucesso' => false,
-                    'mensagem' => 'Erro no envio de email!'
-                ]
+                'sucesso' => 400,
+                'mensagem' => 'Erro ao enviar email',
+                'conteudo' => null
             ];
         }
 
-    } catch (Exception $e)
-    {
-        error_log($e, 0);
+    } catch (Exception $e) {
+        trigger_error('Erro ao montar email' . $e->getMessage(), E_USER_WARNING);
+        
         return [
-            'funcao_executada' => false,
-            'retorno' => [
-                'sucesso' => false,
-                'mensagem' => 'Erro ao tentar enviar email'
-            ]
+            'sucesso' => 400,
+            'mensagem' => 'Erro ao montar email',
+            'conteudo' => null
         ];
     }
 }

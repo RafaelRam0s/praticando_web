@@ -1,6 +1,4 @@
 
-
-
 Lista de Status:
 
     100 - Um código de status de 100 níveis indica que a solicitação que você fez ao servidor ainda está em andamento por algum motivo. Isto não é necessariamente um problema, é apenas informação extra para o informar do que se está a passar.

@@ -1,64 +1,39 @@
 <?php 
 
 require_once(__DIR__ . '/../../configuracoes/rotas.php');
+require_once(Rotas::buscar_arquivo('database/praticando_web/tabelas/usuario_status.php'));
 
-// ------------------------------------------------------------------------
-// Criar 
-// ------------------------------------------------------------------------
-function secure_usuario_status_criar(
-    int $id_usuario,
-    string $status,
-    ?string $observacao
-) {
 
-    convocar_rota('db/praticando_web/usuario_status');
+class Secure_usuario_status {
 
-    // Resetar auto_increment
-        $resetar_auto_increment = tb_usuario_status_resetar_auto_increment();
+    public static function criar_registro(
+        int $id_usuario,
+        string $status,
+        ?string $observacao
+    ) {
 
-        if ($resetar_auto_increment['sucesso'] != 200) {
-            return [
-                'sucesso' => 400,
-                'mensagem' => 'Erro ao resetar o auto_increment',
-                'conteudo' => null
-            ];
-        }
-    //
+        // Resetar auto_increment
+            $resetar_auto_increment = Usuario_status::resetar_auto_increment();
+        
+            if ($resetar_auto_increment['sucesso'] != 200) {
+                return $resetar_auto_increment;
+            }
+        //
 
-    // Salvar no banco de dados
         date_default_timezone_set('UTC');
         $data_atual = new DateTime();
-        $data_atual = $data_atual->format('Y-m-d H:i:s');
+        $data_atual_formatada = $data_atual->format('Y-m-d H:i:s');
 
-        $retorno_do_banco = tb_usuario_status_criar(
-            id_usuario: $id_usuario,
-            status: $status,
-            observacao: $observacao,
-            data_de_cadastro: $data_atual
-        );
-    // 
+        return Usuario_status::criar_registro($id_usuario, $status, $data_atual_formatada, $observacao);
+    }
 
-    return $retorno_do_banco;
-}
+    public static function ler_registro_por_id_usuario(int $id_usuario) {
+        return Usuario_status::ler_registro_por_id_usuario($id_usuario);
+    }
 
-// ------------------------------------------------------------------------
-// Visualizar 
-// ------------------------------------------------------------------------
-function secure_usuario_status_situacao($id_usuario) {
-
-    convocar_rota('db/praticando_web/usuario_status');
-
-    return tb_usuario_status_buscar_id_usuario($id_usuario);
-}
-
-// ------------------------------------------------------------------------
-// Apagar
-// ------------------------------------------------------------------------
-function secure_usuario_status_excluir($id) {
-    
-    convocar_rota('db/praticando_web/usuario_status');
-
-    return tb_usuario_status_excluir($id);
+    public static function apagar_registro(int $id) {
+        return Usuario_status::apagar_registro($id);
+    }
 }
 
 ?>

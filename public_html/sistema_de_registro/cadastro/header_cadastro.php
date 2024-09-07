@@ -1,7 +1,8 @@
 <?php 
-
-    if (isset($_COOKIE['formulario_cadastro']))
-    {
+    require_once(__DIR__ . '/../../../configuracoes/rotas.php');
+    require_once(Rotas::buscar_arquivo('controller/main_controller.php'));
+    
+    if (isset($_COOKIE['formulario_cadastro'])) {
         setcookie(
             name: 'formulario_cadastro',
             value: '',

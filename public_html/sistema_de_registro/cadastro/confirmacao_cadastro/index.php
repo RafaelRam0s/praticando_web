@@ -1,4 +1,4 @@
 <?php
     require_once(__DIR__ . '/../../../../configuracoes/rotas.php');
-    convocar_rota('controllers/controller');
+    require_once(Rotas::buscar_arquivo('controller/main_controller.php'));
 ?>

@@ -1,14 +1,14 @@
 <?php
-    require_once(__DIR__ . '/../../configuracoes/rotas.php');
-    convocar_rota('config/seguranca_de_cabecalho');
+    require_once(__DIR__ . '/../configuracoes/rotas.php');
+    require_once(Rotas::buscar_arquivo('configuracoes/seguranca_de_cabecalho.php'));
 
     if (!(
         isset($layout_descricao)
         && isset($layout_palavras_chaves)
         && isset($layout_titulo)
         && isset($layout_arquivo_conteudo)
-    ))
-    {
+    )) {
+        trigger_error('Erro ao carregar o layout, falta de definição de algumas variáveis essenciais', E_USER_WARNING);
         echo('Erro ao carregar o layout!');
         die();
     }
@@ -16,48 +16,39 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- Meta dados -->
     <meta charset="UTF-8" />
     <meta name="author" content="Rafael Ramos da Silva" />
     <meta name="description" content="<?php echo($layout_descricao); ?>" />
     <meta name="keywords" content="<?php echo($layout_palavras_chaves); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
     <link rel="license" href="/LICENSE" />
+    
+    <!-- Aba do navegador -->
     <link rel="icon" href="/assets/imagens/icones/icone_logo_r_16px.ico" type="image/x-icon" />
-    
-    <link rel="stylesheet" href="/assets/css/style.css" media="all" />
-    <link rel="stylesheet" href="/assets/css/layout_rancode.css" media="all" />
-    
     <title><?php echo($layout_titulo); ?></title>
 
+    <!-- Folhas de estilo -->
+    <!-- <link rel="stylesheet" href="/assets/css/estilo_padrao_do_chrome.css" media="all" />  -->
+    <link rel="stylesheet" href="/assets/css/layout_rancode_v1.css" media="all" /> 
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="/assets/frameworks/fontawesome-free-6.2.1-web/css/all.min.css" />
-    <!--
-        Font Awesome linkado externamente: 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.css"> 
-    -->
-
+    <!-- Font Awesome linkado externamente: -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.css">  -->
 </head>
 <body>
+    
+    <!-- Tela principal -->
+    <div id="pagina_principal">
+        
+        <div id="pre_cabecalho"></div>
 
-    <!--     
-        Tela de pré-carregamento
-        <div id="preloader">
-            <div>
-                <i class="fa-solid fa-spinner animacao_rodando"></i>
-                Carregando...
-            </div>
-        </div> 
-    -->
-    <div id="pre_cabecalho"></div>
-    <div id="corpo">
         <header id="cabecalho">
-            <div id="cabecalho_principal">
-
+            <div id="cabecalho_organizado">
                 <div>
                     <a href="/">
-                        <div class="logo_em_css">
-                            RanCode
-                        </div>
+                        <div class="logo_em_css">RanCode</div>
                     </a>
                 </div>
 
@@ -65,19 +56,17 @@
                     <span class="mensagem_menu">Hello World!</span>
                 </div>
 
-                <div id="_abrir_menu_links">
+                <div id="_abrir_menu_links" class="botao_menu">
                     <button type="button" onclick="expandirMenu()" title="Abrir menu">
                         <i class="fa-solid fa-bars"></i>
                     </button>
                 </div>
-                <div id="_fechar_menu_links">
+                <div id="_fechar_menu_links" class="botao_menu">
                     <button type="button" onclick="recolherMenu()" title="Fechar menu">
                         <i class="fa-solid fa-x"></i>
                     </button>
                 </div> 
-
             </div>
-
             <nav id="_menu_links">
                 <div>
                     <ul>
@@ -115,6 +104,9 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="/error/404">Página de erro 404</a>
+                        </li>
                         <!--
                             <li class="aba_de_categorias">
                                 <span>Aba de categorias 1</span>
@@ -135,17 +127,17 @@
                 </div>
             </nav>
         </header>
-        
-        <main>
-            <?php convocar_rota($layout_arquivo_conteudo); ?>
+
+        <main id="corpo_principal">
+            <div id="conteudo_principal">
+                <?php require_once(Rotas::buscar_arquivo($layout_arquivo_conteudo)); ?>
+            </div>
         </main>
-        
-        <hr />
 
         <footer id="rodape">
             <div>
                 <div id="area_informacoes" class="flex-direction_column_600px">
-                    <div class="width_100p_600px">
+                    <div>
                         <a href="/">
                             <div class="logo_em_css">
                                 RanCode
@@ -155,7 +147,7 @@
                         <p><a href="/politica_de_privacidade" target="_self">Política de privacidade</a></p>
                         <p><a href="/termos_de_uso" target="_self">Termos de uso</a></p>
                     </div>
-                    <div class="width_100p_600px">
+                    <div>
                         <address>
                             <p>Criado por: Rafael Ramos da Silva</p>
                             <p>
@@ -176,7 +168,7 @@
                             </p>
                             <p>
                                 <i class="fas fa-mobile-alt"></i>
-                                Celular de contato: <a href="tel:+5511950503563">+55 (11) 9-5050-3563</a>
+                                Celular de contato: <a href="tel:+55011950503563">+55 (011) 9-5050-3563</a>
                             </p>
                         </address>
                     </div>
@@ -188,26 +180,11 @@
                     <p>&#169; <?php echo( (new DateTime('now', new DateTimeZone('America/Sao_Paulo')))->format('Y') ); ?> RanCode</p>
                 </div>
             </div>
-        </footer>
+        </footer>    
     </div>
+    
 
-    <script src="/assets/javascript/script.js"></script>
-    <script>
-        function expandirMenu() {
-            document.getElementById('_menu_links').style.display = 'block';
-            setTimeout(() => {document.getElementById('_menu_links').style.maxHeight = '40vh';}, 100);
-
-            document.getElementById('_abrir_menu_links').style.display = 'none';
-            document.getElementById('_fechar_menu_links').style.display = 'block';
-        };
-
-        function recolherMenu() {
-            document.getElementById('_menu_links').style.maxHeight = '0vh';
-            setTimeout(() => {document.getElementById('_menu_links').style.display = 'none';}, 100);
-
-            document.getElementById('_abrir_menu_links').style.display = 'block';
-            document.getElementById('_fechar_menu_links').style.display = 'none';
-        };
-    </script>
+    <!-- Scripts -->
+    <script src="/assets/javascript/layout_rancode.js"></script>
 </body>
 </html>

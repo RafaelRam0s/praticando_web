@@ -1,28 +1,29 @@
 <?php 
-    
-    if (isset($_COOKIE['formulario_cadastro']))
-    {
-        require_once(__DIR__ . '/../../../configuracoes/rotas.php');
-        convocar_rota('config/configuracoes');
+    require_once(__DIR__ . '/../../../configuracoes/rotas.php');
+    require_once(Rotas::buscar_arquivo('controller/main_controller.php'));
+
+    if (isset($_COOKIE['formulario_cadastro'])) {
+        
+        require_once(Rotas::buscar_arquivo('configuracoes/configuracoes.php'));
+
         $dados_do_cookie = unserialize(aesDesencriptar($_COOKIE['formulario_cadastro']));
         $dados_do_cookie = escaparDados($dados_do_cookie);
-    }
 
-    function escaparDados($dados) {
-        if (is_array($dados)) {
-            foreach ($dados as &$valor) {
-                $valor = escaparDados($valor); // Chamada recursiva para arrays aninhados
+        function escaparDados($dados) {
+            if (is_array($dados)) {
+                foreach ($dados as &$valor) {
+                    $valor = escaparDados($valor); // Chamada recursiva para arrays aninhados
+                }
+                unset($valor); // Importante: Desfaz a referência do último item
+            } elseif (is_string($dados)) {
+                // Aplica htmlspecialchars diretamente em strings
+                if (isset($dados)) {
+                    $dados = htmlspecialchars($dados, ENT_QUOTES, 'UTF-8');
+                }
             }
-            unset($valor); // Importante: Desfaz a referência do último item
-        } elseif (is_string($dados)) {
-            // Aplica htmlspecialchars diretamente em strings
-            if (isset($dados)) {
-                $dados = htmlspecialchars($dados, ENT_QUOTES, 'UTF-8');
-            }
+            return $dados;
         }
-        return $dados;
     }
-
 ?>
 
 <div>
@@ -147,4 +148,3 @@
         
     </div>
 </div>
-

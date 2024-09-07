@@ -1,4 +1,5 @@
-<?php 
+<?php
+
     require_once(__DIR__ . '/../../../../configuracoes/rotas.php');
     
     // Verifica se o request_method existe, pq vai que a pessoa esteja usando um console para acessar o site
@@ -95,7 +96,7 @@
             //
 
             // Verifica se cada campo foi preenchido com a quantidade certa de caracteres
-                convocar_rota('secure/validacoes_de_cadastro');
+                require_once(Rotas::buscar_arquivo('secure/validacoes_de_cadastro.php'));
                 
                 if ( (strlen($_POST['name_nome_completo']) < 2) || (strlen($_POST['name_nome_completo']) > 255) ) {
                     $variaveis_da_pagina['inputs']['name_nome_completo'] = 'O campo "' . $relacao_name_com_campo['name_nome_completo'] . '" não possui a quantidade certa de caracteres';
@@ -211,12 +212,19 @@
             //
 
             // Ver se o usuário não possui cadastro
-                convocar_rota('secure/praticando_web/usuario');
-                $usuario = secure_usuario_existe_email($_POST['name_email']);
+                require_once(Rotas::buscar_arquivo('secure/praticando_web/usuario.php'));
+
+                $usuario = Secure_usuario::ler_registro_por_email($_POST['name_email']);
                 
-                if ($usuario['sucesso'] == 204) {
+                if ($usuario['sucesso'] == 200) {
+
+                    if (isset($usuario['conteudo'][0]) == true) {
+                        $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'E-mail já registrado. Cadastro Indisponíel!';
+                        retornar_pagina_com_avisos();
+                    }
+
                     // Criar conta
-                        $novo_usuario = secure_usuario_registrar(
+                        $novo_usuario = Secure_usuario::criar_registro(
                             email: $_POST['name_email'],
                             senha: $_POST['name_senha'],
                             nome: $_POST['name_nome_completo'],
@@ -234,11 +242,12 @@
                     //
                     
                     // Gerar status pendente para o usuario
-                        convocar_rota('secure/praticando_web/usuario_status');
-                        $novo_status = secure_usuario_status_criar($novo_usuario['conteudo']['id'], 'Pendente', 'Cadastro Criado');
+                        require_once(Rotas::buscar_arquivo('secure/praticando_web/usuario_status.php'));
+                        $novo_status = Secure_usuario_status::criar_registro($novo_usuario['conteudo']['id'], 'Pendente', 'Cadastro Criado');
+
                         if ($novo_status['sucesso'] != 200) {
                             
-                            secure_usuario_excluir(email: $_POST['name_email'], senha: $_POST['name_senha']);
+                            Secure_usuario::apagar_registro($novo_usuario['conteudo']['id']);
 
                             $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
                             retornar_pagina_com_avisos();
@@ -246,14 +255,14 @@
                     //
 
                     // Gerar um token de acesso
-                        convocar_rota('secure/praticando_web/token_de_cadastro');
-                        $token_de_cadastro = gerarTokenAlfanumerico(255);
-                        $novo_token = secure_token_de_cadastro_criar($novo_usuario['conteudo']['id'], $token_de_cadastro);
+                        require_once(Rotas::buscar_arquivo('secure/praticando_web/token_de_cadastro.php'));
+                        $token_de_cadastro = Secure_token_de_cadastro::gerar_token_alfa_numerico(255);
+                        $novo_token = Secure_token_de_cadastro::criar_registro($novo_usuario['conteudo']['id'], $token_de_cadastro);
 
                         if ($novo_token['sucesso'] != 200) {
                             
-                            secure_usuario_status_excluir($novo_status['conteudo']['id']);
-                            secure_usuario_excluir(email: $_POST['name_email'], senha: $_POST['name_senha']);
+                            Secure_usuario_status::apagar_registro($novo_status['conteudo']['id']);
+                            Secure_usuario::apagar_registro($novo_usuario['conteudo']['id']);
 
                             $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
                             retornar_pagina_com_avisos();
@@ -261,14 +270,14 @@
                     //
 
                     // Registrar envio de e-mail
-                        convocar_rota('secure/praticando_web/historico_de_email');
-                        $historico_de_email = secure_historico_de_email_criar($novo_usuario['conteudo']['id'], 'Confimação de Cadastro');
+                        require_once(Rotas::buscar_arquivo('secure/praticando_web/historico_de_email.php'));
+                        $historico_de_email = Secure_historico_de_email::criar_registro($novo_usuario['conteudo']['id'], 'Confimação de Cadastro');
                         
                         if ($historico_de_email['sucesso'] != 200) {
                                     
-                            secure_token_de_cadastro_excluir($novo_token['conteudo']['id']);
-                            secure_usuario_status_excluir($novo_status['conteudo']['id']);
-                            secure_usuario_excluir(email: $_POST['name_email'], senha: $_POST['name_senha']);
+                            Secure_token_de_cadastro::apagar_registro($novo_token['conteudo']['id']);
+                            Secure_usuario_status::apagar_registro($novo_status['conteudo']['id']);
+                            Secure_usuario::apagar_registro($novo_usuario['conteudo']['id']);
 
                             $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
                             retornar_pagina_com_avisos();
@@ -276,15 +285,15 @@
                     //
 
                     // Enviar e-mail de confirmação de cadastro
-                        convocar_rota('email/confirmar_cadastro');
+                        require_once(Rotas::buscar_arquivo('email/confirmar_cadastro.php'));
                         $envio_do_email = email_confirmar_cadastro($_POST['name_email'], $token_de_cadastro);
 
                         if ($envio_do_email['sucesso'] != 200) {
                                 
-                            secure_historico_de_email_excluir($historico_de_email['conteudo']['id']);
-                            secure_token_de_cadastro_excluir($novo_token['conteudo']['id']);
-                            secure_usuario_status_excluir($novo_status['conteudo']['id']);
-                            secure_usuario_excluir(email: $_POST['name_email'], senha: $_POST['name_senha']);
+                            Secure_historico_de_email::apagar_registro($historico_de_email['conteudo']['id']);
+                            Secure_token_de_cadastro::apagar_registro($novo_token['conteudo']['id']);
+                            Secure_usuario_status::apagar_registro($novo_status['conteudo']['id']);
+                            Secure_usuario::apagar_registro($novo_usuario['conteudo']['id']);
 
                             $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
                             retornar_pagina_com_avisos();
@@ -294,9 +303,6 @@
                     // Se der certo, redirecione para a página de cadastro bem sucedido
                     header('Location: /sistema_de_registro/cadastro/confirmacao_cadastro');
                     die();
-                } elseif ($usuario['sucesso'] == 200) {
-                    $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'E-mail já registrado. Cadastro Indisponíel!';
-                    retornar_pagina_com_avisos();
                 } else {
                     $variaveis_da_pagina['respostas']['erro_de_formulario'] = 'Um erro interno ocorreu, tente novamente! ' . __LINE__;
                     retornar_pagina_com_avisos();
@@ -333,7 +339,7 @@
         
         if ($possui_aviso == true) 
         {
-            convocar_rota('config/configuracoes');
+            require_once(Rotas::buscar_arquivo('configuracoes/configuracoes.php'));
             
             $dados_do_cookie = serialize($variaveis_da_pagina);
             $dados_do_cookie = aesEncriptar($dados_do_cookie);
@@ -353,5 +359,5 @@
         }
     }
 
-    convocar_rota('controllers/controller');
+    require_once(Rotas::buscar_arquivo('controller/main_controller.php'));
 ?>

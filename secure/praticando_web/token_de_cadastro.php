@@ -1,100 +1,77 @@
-<?php 
+<?php
 
 require_once(__DIR__ . '/../../configuracoes/rotas.php');
+require_once(Rotas::buscar_arquivo('database/praticando_web/tabelas/token_de_cadastro.php'));
 
-// ------------------------------------------------------------------------
-// Criar 
-// ------------------------------------------------------------------------
-function secure_token_de_cadastro_criar($id_usuario, $valor) {
-
-    convocar_rota('db/praticando_web/token_de_cadastro');
-
-    // @@@ Fazer comentarios abaixo
-    // Ver se o usuario existe
-    // Ver se o valor do token é valido
-
-    // Resetar auto_increment
-        $resetar_auto_increment = tb_token_de_cadastro_resetar_auto_increment();
-
-        if ($resetar_auto_increment['sucesso'] != 200) {
-            return [
-                'sucesso' => 400,
-                'mensagem' => 'Erro ao resetar o auto_increment',
-                'conteudo' => null
-            ];
-        }
-    //
-
-    date_default_timezone_set('UTC');
-    $data_atual = new DateTime();
-    $data_atual_formatada = $data_atual->format('Y-m-d H:i:s');
+class Secure_token_de_cadastro {
     
-    $data_de_limite = clone $data_atual;
-    $data_de_limite->modify('+8 hours');
-    $data_de_limite_formatada = $data_de_limite->format('Y-m-d H:i:s');
+    public static function criar_registro(int $id_usuario, string $valor) {
+        
+        // Resetar auto_increment
+            $resetar_auto_increment = Token_de_cadastro::resetar_auto_increment();
+        
+            if ($resetar_auto_increment['sucesso'] != 200) {
+                return $resetar_auto_increment;
+            }
+        //
 
-    return tb_token_de_cadastro_criar(
-        $id_usuario,
-        $valor,
-        $data_atual_formatada,
-        $data_de_limite_formatada,
-        null
-    );
-    
-}
+        date_default_timezone_set('UTC');
+        $data_atual = new DateTime();
+        $data_atual_formatada = $data_atual->format('Y-m-d H:i:s');
 
-// ------------------------------------------------------------------------
-// Visualizar 
-// ------------------------------------------------------------------------
-function secure_token_de_cadastro_buscar_valor($valor) {
-    
-    convocar_rota('db/praticando_web/token_de_cadastro');
+        $data_de_limite = clone $data_atual;
+        $data_de_limite->modify('+8 hours');
+        $data_de_limite_formatada = $data_de_limite->format('Y-m-d H:i:s');
 
-    return  tb_token_de_cadastro_buscar_valor($valor);
-
-}
-
-// ------------------------------------------------------------------------
-// Atualizar 
-// ------------------------------------------------------------------------
-function secure_token_de_cadastro_atualizar_data_de_uso($id) {
-
-    date_default_timezone_set('UTC');
-    $data_atual = new DateTime();
-    
-    return tb_token_de_cadastro_atualizar_data_de_uso($id, $data_atual->format('Y-m-d H:i:s'));
-}
-
-// ------------------------------------------------------------------------
-// Apagar
-// ------------------------------------------------------------------------
-function secure_token_de_cadastro_excluir($id) {
-
-    convocar_rota('db/praticando_web/token_de_cadastro');
-
-    return tb_token_de_cadastro_excluir($id);
-}
-
-// ------------------------------------------------------------------------
-// Funcionalidades 
-// ------------------------------------------------------------------------
-function gerarTokenAlfanumerico($comprimento = 255) {
-    // Definir os caracteres permitidos
-    $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    
-    // Inicializar o token
-    $token = '';
-
-    // Garantir que o comprimento não exceda o tamanho máximo permitido
-    $comprimento = min($comprimento, 255);
-
-    // Construir o token aleatório
-    for ($i = 0; $i < $comprimento; $i++) {
-        // Selecionar um caractere aleatório do conjunto
-        $token .= $caracteres[random_int(0, strlen($caracteres) - 1)];
+        return Token_de_cadastro::criar_registro($id_usuario, $valor, $data_atual_formatada, $data_de_limite_formatada, null);
     }
 
-    return $token;
+    public static function ler_registro_por_valor(string $valor) {
+        return Token_de_cadastro::ler_registro_por_valor($valor);
+    }
+
+    public static function atualizar_data_de_uso(string $valor) {
+
+        $token = Token_de_cadastro::ler_registro_por_valor($valor);
+        
+        if ($token['sucesso'] != 200) {
+            return $token;
+        }
+
+        date_default_timezone_set('UTC');
+        $data_atual = new DateTime();
+        $data_atual = $data_atual->format('Y-m-d H:i:s');
+
+        return Token_de_cadastro::atualizar_registro(
+            $token['conteudo'][0]['id'],
+            $token['conteudo'][0]['id_usuario'],
+            $token['conteudo'][0]['valor'],
+            $token['conteudo'][0]['data_de_criacao'],
+            $token['conteudo'][0]['data_de_expiracao'],
+            $data_atual
+        );
+    }
+
+    public static function apagar_registro(int $id) {
+        return Token_de_cadastro::apagar_registro($id);
+    }
+
+    public static function gerar_token_alfa_numerico($comprimento = 255) : string {
+        // Definir os caracteres permitidos
+        $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            
+        // Inicializar o token
+        $token = '';
+
+        // Construir o token aleatório
+        for ($i = 0; $i < $comprimento; $i++) {
+            // Selecionar um caractere aleatório do conjunto
+            $token .= $caracteres[random_int(0, strlen($caracteres) - 1)];
+        }
+
+        return $token;
+    }
+
 }
 
 ?>
