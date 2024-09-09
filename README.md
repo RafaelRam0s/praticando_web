@@ -26,10 +26,12 @@
     Garantir que está usando a versão 8.2 do php e garantir que ela continua segura
 
 - Tarefas a fazer:
-    Ajustar o css "layout_rancode.css"
-    Ajustar o js "script.js"
     Adicionar camada de segurança para envios com token:
         Ao gerar um token e enviar um email para uma pessoa poder validar o cadastro ou trocar a senha valide se o token pode ser usado para confirmar a ação, caso possa, solicite o usuário confirmar o email para o qual o token foi enviado, se passar de 10 tentativas invalide o token e registre um acesso forçado, pegue ip da máquina e toda informação que for possível
+    Fazer telas: Esqueci a senha; Recuperação de senha; Área de Login; Layout Logado;
+    Ajustar o js "script.js"
+    No Layout Rancode quando abrimos o hamburguer de menu quero fechar ele quando o usuário clicar fora do menu e não somente quando clicar no hamburguer x
+    
 
 - Antes de subir para a produção:
     Verificar os arquivos: 

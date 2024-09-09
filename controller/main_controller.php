@@ -41,10 +41,22 @@
             $layout_arquivo_conteudo = 'public_html/sistema_de_registro/cadastro/cadastro.php';
             $layout_titulo = 'Cadastramento';
 
+        } elseif ($rota_limpa == 'sistema_de_registro/cadastro/post_cadastro.php') {
+
+            require_once(Rotas::buscar_arquivo('public_html/sistema_de_registro/cadastro/post_cadastro.php'));
+            die();
+            
         } elseif ($rota_limpa == 'sistema_de_registro/cadastro/confirmacao_cadastro') {
+        
+            require_once(Rotas::buscar_arquivo('public_html/sistema_de_registro/cadastro/confirmacao_cadastro/header_confirmacao_cadastro.php'));
             
             $layout_arquivo_conteudo = 'public_html/sistema_de_registro/cadastro/confirmacao_cadastro/confirmacao_cadastro.php';
             $layout_titulo = 'Confirme o Cadastro';
+
+        } elseif ($rota_limpa == 'sistema_de_registro/cadastro/confirmacao_cadastro/confirmacao_cadastro.php') {
+
+            require_once(Rotas::buscar_arquivo('public_html/sistema_de_registro/cadastro/confirmacao_cadastro/post_confirmacao_cadastro.php'));
+            die();
 
         } elseif ($rota_limpa == 'sistema_de_registro/login') {
 
@@ -57,6 +69,21 @@
             $layout_titulo = '404';
             $layout_descricao = 'Página não encontrada ou alguma funcionalidade não está disponível';
             $layout_palavras_chaves = 'erro';
+            
+        } elseif ($rota_limpa == 'robots.txt') {
+
+            require_once(Rotas::buscar_arquivo('public_html/robots.txt'));
+            die();
+            
+        } elseif ($rota_limpa == 'LICENSE') {
+
+            require_once(Rotas::buscar_arquivo('public_html/LICENSE'));
+            die();
+            
+        } elseif ($rota_limpa == 'sitemap.xml') {
+
+            require_once(Rotas::buscar_arquivo('public_html/sitemap.xml'));
+            die();
             
         } else {
 

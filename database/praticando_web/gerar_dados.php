@@ -36,6 +36,13 @@
     $resposta = Historico_de_email::gerar_dados();
     print_r($resposta);
 
+    echo('=========================================' . "\n");
+    echo('Token_de_cadastro_validacao' . "\n");
+    echo('=========================================' . "\n");
+    require_once(Rotas::buscar_arquivo('database/praticando_web/tabelas/token_de_cadastro_validacao.php'));
+    $resposta = Token_de_cadastro_validacao::gerar_dados();
+    print_r($resposta);
+
     echo('Terminando preenchimento de dados...' . "\n");
 
 ?>

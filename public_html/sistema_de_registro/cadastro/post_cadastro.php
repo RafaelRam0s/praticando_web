@@ -1,6 +1,6 @@
 <?php
 
-    require_once(__DIR__ . '/../../../../configuracoes/rotas.php');
+    require_once(__DIR__ . '/../../../configuracoes/rotas.php');
     
     // Verifica se o request_method existe, pq vai que a pessoa esteja usando um console para acessar o site
     if (isset($_SERVER['REQUEST_METHOD']) == true) {
@@ -320,25 +320,20 @@
         $possui_aviso = false;
 
         $chaves_do_vetor = array_keys($variaveis_da_pagina['inputs']);
-        for ($contador = 0; ($contador < count($chaves_do_vetor)) && ($possui_aviso == false); $contador++)
-        {
-            if (isset($variaveis_da_pagina['inputs'][$chaves_do_vetor[$contador]]))
-            {
+        for ($contador = 0; ($contador < count($chaves_do_vetor)) && ($possui_aviso == false); $contador++) {
+            if (isset($variaveis_da_pagina['inputs'][$chaves_do_vetor[$contador]])) {
                 $possui_aviso = true;
             }
         }
 
         $chaves_do_vetor = array_keys($variaveis_da_pagina['respostas']);
-        for ($contador = 0; ($contador < count($chaves_do_vetor)) && ($possui_aviso == false); $contador++)
-        {
-            if (isset($variaveis_da_pagina['respostas'][$chaves_do_vetor[$contador]]))
-            {
+        for ($contador = 0; ($contador < count($chaves_do_vetor)) && ($possui_aviso == false); $contador++) {
+            if (isset($variaveis_da_pagina['respostas'][$chaves_do_vetor[$contador]])) {
                 $possui_aviso = true;
             }
         }
         
-        if ($possui_aviso == true) 
-        {
+        if ($possui_aviso == true) {
             require_once(Rotas::buscar_arquivo('configuracoes/configuracoes.php'));
             
             $dados_do_cookie = serialize($variaveis_da_pagina);
@@ -359,5 +354,6 @@
         }
     }
 
-    require_once(Rotas::buscar_arquivo('controller/main_controller.php'));
+    header('Location: /error/404');
+    die();
 ?>

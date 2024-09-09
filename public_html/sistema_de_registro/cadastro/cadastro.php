@@ -7,22 +7,9 @@
         require_once(Rotas::buscar_arquivo('configuracoes/configuracoes.php'));
 
         $dados_do_cookie = unserialize(aesDesencriptar($_COOKIE['formulario_cadastro']));
-        $dados_do_cookie = escaparDados($dados_do_cookie);
 
-        function escaparDados($dados) {
-            if (is_array($dados)) {
-                foreach ($dados as &$valor) {
-                    $valor = escaparDados($valor); // Chamada recursiva para arrays aninhados
-                }
-                unset($valor); // Importante: Desfaz a referência do último item
-            } elseif (is_string($dados)) {
-                // Aplica htmlspecialchars diretamente em strings
-                if (isset($dados)) {
-                    $dados = htmlspecialchars($dados, ENT_QUOTES, 'UTF-8');
-                }
-            }
-            return $dados;
-        }
+        require_once(Rotas::buscar_arquivo('funcoes_php/escarpar_dados.php'));
+        $dados_do_cookie = escarpar_dados($dados_do_cookie);
     }
 ?>
 
@@ -64,7 +51,7 @@
     <p>Preencha o formulário para que participe do nosso sistema, caso já possua uma conta entre <a href="/sistema_de_registro/login">aqui</a></p>
 
     <div>
-        <form id="form_cadastro" method="POST" action="/sistema_de_registro/cadastro/post_cadastro/index.php">
+        <form id="form_cadastro" method="POST" action="/sistema_de_registro/cadastro/post_cadastro.php">
             
             <h3>Dados pessoais</h3>
             

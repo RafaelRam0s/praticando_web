@@ -3,8 +3,8 @@
     require_once(__DIR__ . '/../../configuracoes/rotas.php');
     require_once(Rotas::buscar_arquivo('configuracoes/seguranca_de_cabecalho.php'));
 
-    require_once(Rotas::buscar_arquivo('database/praticando_web/gerar_tabelas.php'));
-    require_once(Rotas::buscar_arquivo('database/praticando_web/gerar_dados.php'));
+    // require_once(Rotas::buscar_arquivo('database/praticando_web/gerar_tabelas.php'));
+    // require_once(Rotas::buscar_arquivo('database/praticando_web/gerar_dados.php'));
 
     echo('Começando apresentação de dados...' . "\n");
 
@@ -36,6 +36,13 @@
     echo('=========================================' . "\n");
     require_once(Rotas::buscar_arquivo('database/praticando_web/tabelas/historico_de_email.php'));
     $resposta = Historico_de_email::ler_registros();
+    print_r($resposta);
+
+    echo('=========================================' . "\n");
+    echo('Token_de_cadastro_validacao' . "\n");
+    echo('=========================================' . "\n");
+    require_once(Rotas::buscar_arquivo('database/praticando_web/tabelas/token_de_cadastro_validacao.php'));
+    $resposta = Token_de_cadastro_validacao::ler_registros();
     print_r($resposta);
 
     echo('Terminando apresentação de dados...' . "\n");

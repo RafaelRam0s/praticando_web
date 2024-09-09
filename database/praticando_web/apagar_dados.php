@@ -37,6 +37,14 @@
     Historico_de_email::resetar_auto_increment();
     print_r($resposta);
 
+    echo('=========================================' . "\n");
+    echo('Token_de_cadastro_validacao' . "\n");
+    echo('=========================================' . "\n");
+    require_once(Rotas::buscar_arquivo('database/praticando_web/tabelas/token_de_cadastro_validacao.php'));
+    $resposta = Token_de_cadastro_validacao::apagar_dados();
+    Token_de_cadastro_validacao::resetar_auto_increment();
+    print_r($resposta);
+
     echo('Terminando preenchimento de dados...' . "\n");
 
 ?>
